@@ -17,3 +17,13 @@ pip install .
 ```bash
 aibi summary path/to/model.json
 ```
+
+## Modules
+
+| Module      | Purpose                                  |
+| ----------- | ---------------------------------------- |
+| `naming`    | snake_case / display-name normalization  |
+| `measure`   | format-string builders and detection     |
+| `dax`       | common DAX measure snippets              |
+| `metadata`  | model JSON inspection and summaries      |
+| `csvio`     | CSV export/import of measure inventories |
