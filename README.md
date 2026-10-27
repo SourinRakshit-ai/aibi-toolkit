@@ -40,3 +40,10 @@ make test
 from aibi_toolkit.naming import to_display_name
 to_display_name("total_sales_amount")  # -> 'Total Sales Amount'
 ```
+
+## Format helpers
+
+```python
+from aibi_toolkit.measure import currency_format
+currency_format("EUR", 0)  # -> '€#,0'
+```
