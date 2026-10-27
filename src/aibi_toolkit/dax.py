@@ -66,3 +66,8 @@ def build_cumulative_measure(base: str, date_column: str, name: str) -> str:
         f"VAR _max = MAX('{date_column}')\n"
         f"RETURN CALCULATE([{base}], FILTER(ALL('{date_column}'), '{date_column}' <= _max))"
     )
+
+
+def build_sliceresponsive_measure(base: str, name: str = "Default") -> str:
+    """Baseline measure that ignores slicers for comparison views."""
+    return f"{name} =\nCALCULATE([{base}], ALLSELECTED())"
