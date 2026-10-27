@@ -13,3 +13,8 @@ def build_sum_measure(table: str, column: str, name: str) -> str:
 def build_distinctcount_measure(table: str, column: str, name: str) -> str:
     """DISTINCTCOUNT measure snippet."""
     return f"{name} =\nDISTINCTCOUNT('{table}'[{column}])"
+
+
+def build_safe_ratio(numerator: str, denominator: str, name: str, alt: str = "0") -> str:
+    """Ratio wrapped in DIVIDE so divide-by-zero never errors."""
+    return f"{name} =\nDIVIDE([{numerator}], [{denominator}], {alt})"
