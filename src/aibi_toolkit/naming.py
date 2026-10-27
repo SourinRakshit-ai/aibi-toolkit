@@ -37,3 +37,16 @@ def sanitize_table_name(name: str) -> str:
     """Remove characters that break Power BI / SQL identifiers."""
     name = re.sub(r"[^\w\s()-]", "", name)
     return re.sub(r"\s+", " ", name).strip()
+
+
+MEASURE_PREFIXES = {
+    "count": "Count of",
+    "sum": "Total",
+    "avg": "Average",
+    "ratio": "%",
+}
+
+
+def suggest_measure_prefix(aggregation: str) -> str:
+    """Suggest a display prefix for a measure based on its aggregation."""
+    return MEASURE_PREFIXES.get(aggregation.lower(), aggregation.capitalize() + " of")
