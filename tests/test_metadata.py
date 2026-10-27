@@ -15,3 +15,9 @@ def test_list_measures():
 def test_summary():
     s = model_summary(MODEL)
     assert s == {"tables": 2, "measures": 1, "columns": 3}
+
+
+def test_find_unused_measures():
+    from aibi_toolkit.metadata import find_unused_measures
+    model = {"tables": [{"name": "S", "measures": [{"name": "A"}, {"name": "B", "formatString": "#,0"}]}]}
+    assert find_unused_measures(model) == ["A"]
