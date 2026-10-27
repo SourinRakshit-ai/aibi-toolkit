@@ -13,3 +13,18 @@ def export_measures(measures: list[dict], path) -> int:
         for m in measures:
             w.writerow({k: m.get(k, "") for k in fieldnames})
     return len(measures)
+
+
+REQUIRED_FIELDS = ("table", "name", "expression")
+
+
+def import_measures(path) -> list[dict]:
+    """Read measures from CSV, raising on rows missing required fields."""
+    out = []
+    with Path(path).open("r", newline="", encoding="utf-8") as f:
+        for i, row in enumerate(csv.DictReader(f), start=2):
+            missing = [k for k in REQUIRED_FIELDS if not row.get(k)]
+            if missing:
+                raise ValueError(f"Row {i} missing required fields: {missing}")
+            out.append(row)
+    return out
