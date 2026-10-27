@@ -19,3 +19,9 @@ def main(argv=None):
 @staticmethod
 def _banner(text: str) -> str:
     return f"=== {text} ==="
+
+
+def _cmd_tables(model_path: str) -> None:
+    from aibi_toolkit.metadata import load_model, list_tables
+    for t in list_tables(load_model(model_path)):
+        print(t)
