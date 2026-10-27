@@ -43,3 +43,8 @@ def build_rank_measure(column: str, name: str) -> str:
         f"{name} =\n"
         f"RANKX(ALLSELECTED(), [{column}], , DESC, DENSE)"
     )
+
+
+def build_soy_measure(base: str, date_column: str, name: str) -> str:
+    """Start-of-year-to-date variant alias for TOTALYTD."""
+    return build_ytd_measure(base, date_column, name)
