@@ -51,3 +51,11 @@ def format_report(model: dict, path) -> None:
             for m in t.get("measures", []):
                 if m.get("expression", "").startswith("SUM"):
                     w.writerow([t["name"], m["name"], "#,0.00"])
+
+
+def merge_formats(*maps: dict) -> dict:
+    """Merge format maps, later maps winning on conflicts."""
+    out: dict = {}
+    for m in maps:
+        out.update(m)
+    return out
