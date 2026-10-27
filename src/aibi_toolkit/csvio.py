@@ -34,3 +34,14 @@ def summarize_csv(path) -> dict:
     """Return basic stats about a measures CSV: rows and tables."""
     rows = import_measures(path)
     return {"rows": len(rows), "tables": len({r["table"] for r in rows})}
+
+
+def diff_inventories(old_path, new_path) -> dict:
+    """Compare two measure CSVs: added, removed, changed."""
+    old = {(r["table"], r["name"]): r for r in import_measures(old_path)}
+    new = {(r["table"], r["name"]): r for r in import_measures(new_path)}
+    return {
+        "added": sorted(set(new) - set(old)),
+        "removed": sorted(set(old) - set(new)),
+        "changed": sorted(k for k in set(old) & set(new) if old[k] != new[k]),
+    }
