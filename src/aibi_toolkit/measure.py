@@ -38,3 +38,16 @@ DATE_FORMATS = {"short": "dd/MM/yyyy", "iso": "yyyy-MM-dd", "long": "d MMMM yyyy
 def date_format(style: str = "short") -> str:
     """Look up a date format string by style name."""
     return DATE_FORMATS[style]
+
+
+def format_report(model: dict, path) -> None:
+    """Apply detected formats to every numeric measure and write a report."""
+    import csv as _csv
+    from pathlib import Path as _Path
+    with _Path(path).open("w", newline="", encoding="utf-8") as f:
+        w = _csv.writer(f)
+        w.writerow(["table", "name", "suggested_format"])
+        for t in model.get("tables", []):
+            for m in t.get("measures", []):
+                if m.get("expression", "").startswith("SUM"):
+                    w.writerow([t["name"], m["name"], "#,0.00"])
