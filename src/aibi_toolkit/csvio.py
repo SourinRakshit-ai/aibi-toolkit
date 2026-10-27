@@ -28,3 +28,9 @@ def import_measures(path) -> list[dict]:
                 raise ValueError(f"Row {i} missing required fields: {missing}")
             out.append(row)
     return out
+
+
+def summarize_csv(path) -> dict:
+    """Return basic stats about a measures CSV: rows and tables."""
+    rows = import_measures(path)
+    return {"rows": len(rows), "tables": len({r["table"] for r in rows})}
