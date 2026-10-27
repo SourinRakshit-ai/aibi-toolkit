@@ -4,7 +4,7 @@ Small, dependency-light Python helpers for cleaning up Power BI / Tableau
 semantic-model metadata: naming conventions, measure format strings, DAX
 snippets, and CSV round-tripping.
 
-Status: work in progress.
+Status: v0.2 — stable API for naming and format helpers.
 
 ## Install
 
