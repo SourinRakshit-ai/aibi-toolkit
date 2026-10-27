@@ -53,3 +53,11 @@ def count_standalone_measures(model: dict) -> int:
         for t in model.get("tables", [])
         if not t.get("columns")
     )
+
+
+def relationships(model: dict) -> list[dict]:
+    """List model relationships in a readable form."""
+    return [
+        {"from": r.get("fromTable"), "to": r.get("toTable"), "active": r.get("isActive", True)}
+        for r in model.get("relationships", [])
+    ]
