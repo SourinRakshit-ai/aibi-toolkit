@@ -33,3 +33,10 @@ aibi summary path/to/model.json
 ```bash
 make test
 ```
+
+## Python usage
+
+```python
+from aibi_toolkit.naming import to_display_name
+to_display_name("total_sales_amount")  # -> 'Total Sales Amount'
+```
