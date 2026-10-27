@@ -68,3 +68,19 @@ def smart_format(value: float, currency: str = "USD") -> str:
     if value < 1:
         return percent_format(2)
     return thousands_format(2)
+
+
+FORMAT_ALIASES = {
+    "money": "$#,0.00",
+    "pct": "0.0%",
+    "count": "#,0",
+    "seconds": "#,0.0 s",
+}
+
+
+def resolve_format(key: str) -> str:
+    """Resolve a friendly alias to a full format string."""
+    try:
+        return FORMAT_ALIASES[key]
+    except KeyError:
+        raise ValueError(f"Unknown format alias: {key!r}") from None
