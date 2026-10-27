@@ -44,3 +44,12 @@ def find_unused_measures(model: dict) -> list[str]:
         for m in t.get("measures", [])
         if not m.get("formatString")
     ]
+
+
+def count_standalone_measures(model: dict) -> int:
+    """Measures that live on tables with no columns (helper/measure tables)."""
+    return sum(
+        len(t.get("measures", []))
+        for t in model.get("tables", [])
+        if not t.get("columns")
+    )
