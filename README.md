@@ -27,3 +27,9 @@ aibi summary path/to/model.json
 | `dax`       | common DAX measure snippets              |
 | `metadata`  | model JSON inspection and summaries      |
 | `csvio`     | CSV export/import of measure inventories |
+
+## Testing
+
+```bash
+make test
+```
