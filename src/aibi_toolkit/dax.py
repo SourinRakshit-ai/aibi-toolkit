@@ -18,3 +18,11 @@ def build_distinctcount_measure(table: str, column: str, name: str) -> str:
 def build_safe_ratio(numerator: str, denominator: str, name: str, alt: str = "0") -> str:
     """Ratio wrapped in DIVIDE so divide-by-zero never errors."""
     return f"{name} =\nDIVIDE([{numerator}], [{denominator}], {alt})"
+
+
+def build_ytd_measure(base: str, date_column: str, name: str) -> str:
+    """Year-to-date measure over a base measure."""
+    return (
+        f"{name} =\n"
+        f"TOTALYTD([{base}], '{date_column.split('.')[0] if '.' in date_column else date_column}')"
+    )
