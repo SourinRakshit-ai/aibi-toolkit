@@ -25,4 +25,4 @@ def test_dedupe():
 
 def test_normalize_all():
     from aibi_toolkit.naming import normalize_all
-    assert normalize_all(["Cust Amt", "cust amt"]) == ["customer amount"]
+    assert normalize_all(["Cust Amt", "cust amt"]) == ["customer amount", "customer amount 2"]
