@@ -34,3 +34,13 @@ def model_summary(model: dict) -> dict:
         "measures": sum(len(t.get("measures", [])) for t in tables),
         "columns": sum(len(t.get("columns", [])) for t in tables),
     }
+
+
+def find_unused_measures(model: dict) -> list[str]:
+    """Best-effort scan for measures with no format string set."""
+    return [
+        m["name"]
+        for t in model.get("tables", [])
+        for m in t.get("measures", [])
+        if not m.get("formatString")
+    ]
