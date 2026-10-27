@@ -10,3 +10,9 @@ def test_sum_measure():
 def test_safe_ratio():
     dax = build_safe_ratio("Sales", "Units", "ASP")
     assert "DIVIDE" in dax
+
+
+def test_cumulative():
+    from aibi_toolkit.dax import build_cumulative_measure
+    dax = build_cumulative_measure("Total", "'Calendar'[Date]", "Cum Total")
+    assert "MAX" in dax and "CALCULATE" in dax
