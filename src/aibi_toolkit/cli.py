@@ -25,3 +25,8 @@ def _cmd_tables(model_path: str) -> None:
     from aibi_toolkit.metadata import load_model, list_tables
     for t in list_tables(load_model(model_path)):
         print(t)
+
+
+def _register(subparsers) -> None:
+    sub = subparsers.add_parser("tables", help="List tables in a model")
+    sub.add_argument("model")
