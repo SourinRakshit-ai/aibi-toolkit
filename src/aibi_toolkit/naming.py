@@ -80,3 +80,15 @@ def pascal_case(name: str) -> str:
     """Convert any name style to PascalCase."""
     words = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", name).replace("_", " ").split()
     return "".join(w.capitalize() for w in words)
+
+
+def validate_name(name: str) -> list[str]:
+    """Return a list of naming-violation messages (empty = clean)."""
+    issues = []
+    if name != name.strip():
+        issues.append("leading/trailing whitespace")
+    if "  " in name or "__" in name:
+        issues.append("repeated separators")
+    if len(name) > 64:
+        issues.append("longer than 64 chars")
+    return issues
