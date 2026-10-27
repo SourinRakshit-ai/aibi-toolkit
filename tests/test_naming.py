@@ -26,3 +26,13 @@ def test_dedupe():
 def test_normalize_all():
     from aibi_toolkit.naming import normalize_all
     assert normalize_all(["Cust Amt", "cust amt"]) == ["customer amount", "customer amount 2"]
+
+
+def test_pascal():
+    from aibi_toolkit.naming import pascal_case
+    assert pascal_case("total_sales_amount") == "TotalSalesAmount"
+
+
+def test_validate():
+    from aibi_toolkit.naming import validate_name
+    assert validate_name(" good name ") == ["leading/trailing whitespace"]
