@@ -10,4 +10,4 @@ def test_markdown_table():
 def test_align():
     rows = align_column([{"n": "a"}, {"n": "bbb"}], "n")
     assert rows[1]["n"] == "bbb"
-    assert rows[0]["n"] == "  a"
+    assert rows[0]["n"] == "a  "
