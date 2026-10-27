@@ -13,3 +13,14 @@ def load_model(path) -> dict:
 def list_tables(model: dict) -> list[str]:
     """Return all table names in the model."""
     return [t["name"] for t in model.get("tables", [])]
+
+
+def list_measures(model: dict, table: str | None = None) -> list[dict]:
+    """List measures, optionally filtered to one table."""
+    out = []
+    for t in model.get("tables", []):
+        if table and t["name"] != table:
+            continue
+        for m in t.get("measures", []):
+            out.append({**m, "table": t["name"]})
+    return out
