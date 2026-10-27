@@ -26,3 +26,12 @@ def build_ytd_measure(base: str, date_column: str, name: str) -> str:
         f"{name} =\n"
         f"TOTALYTD([{base}], '{date_column.split('.')[0] if '.' in date_column else date_column}')"
     )
+
+
+def build_mom_measure(base: str, name: str) -> str:
+    """Month-over-month measure over a base measure."""
+    return (
+        f"{name} =\n"
+        f"VAR _prev = CALCULATE([{base}], PREVIOUSMONTH())\n"
+        f"RETURN DIVIDE([{base}] - _prev, _prev)"
+    )
