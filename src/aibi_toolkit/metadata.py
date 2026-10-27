@@ -24,3 +24,13 @@ def list_measures(model: dict, table: str | None = None) -> list[dict]:
         for m in t.get("measures", []):
             out.append({**m, "table": t["name"]})
     return out
+
+
+def model_summary(model: dict) -> dict:
+    """High-level counts for a quick model health glance."""
+    tables = model.get("tables", [])
+    return {
+        "tables": len(tables),
+        "measures": sum(len(t.get("measures", [])) for t in tables),
+        "columns": sum(len(t.get("columns", [])) for t in tables),
+    }
