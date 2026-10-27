@@ -48,3 +48,12 @@ def build_rank_measure(column: str, name: str) -> str:
 def build_soy_measure(base: str, date_column: str, name: str) -> str:
     """Start-of-year-to-date variant alias for TOTALYTD."""
     return build_ytd_measure(base, date_column, name)
+
+
+def build_pyo_measure(base: str, date_column: str, name: str) -> str:
+    """Prior-year-over-year measure."""
+    return (
+        f"{name} =\n"
+        f"VAR _prev = CALCULATE([{base}], SAMEPERIODLASTYEAR('{date_column}'))\n"
+        f"RETURN DIVIDE([{base}] - _prev, _prev)"
+    )
