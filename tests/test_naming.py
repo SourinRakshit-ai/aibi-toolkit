@@ -21,3 +21,8 @@ def test_truncate():
 def test_dedupe():
     from aibi_toolkit.naming import dedupe_names
     assert dedupe_names(["Rev", "Rev"]) == ["Rev", "Rev 2"]
+
+
+def test_normalize_all():
+    from aibi_toolkit.naming import normalize_all
+    assert normalize_all(["Cust Amt", "cust amt"]) == ["customer amount"]
