@@ -74,3 +74,9 @@ def normalize_all(names: list[str]) -> list[str]:
     """snake_case, de-abbreviate, then dedupe in one pass."""
     cleaned = [expand_abbreviations(to_snake_case(n)) for n in names]
     return dedupe_names(cleaned)
+
+
+def pascal_case(name: str) -> str:
+    """Convert any name style to PascalCase."""
+    words = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", name).replace("_", " ").split()
+    return "".join(w.capitalize() for w in words)
