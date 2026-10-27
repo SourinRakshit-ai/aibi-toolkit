@@ -31,3 +31,9 @@ def expand_abbreviations(name: str, mapping: dict | None = None) -> str:
     mapping = mapping or ABBREVIATIONS
     words = name.replace("_", " ").split()
     return " ".join(mapping.get(w.lower(), w) for w in words)
+
+
+def sanitize_table_name(name: str) -> str:
+    """Remove characters that break Power BI / SQL identifiers."""
+    name = re.sub(r"[^\w\s()-]", "", name)
+    return re.sub(r"\s+", " ", name).strip()
