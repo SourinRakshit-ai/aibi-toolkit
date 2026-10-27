@@ -19,3 +19,8 @@ def build_contains_filter(table: str, column: str, values: list[str], name: str 
 def build_isfiltered_check(name: str = "Has Filter") -> str:
     """Guard measure that reports whether a visual has cross-filtering."""
     return f"{name} =\nIF(ISFILTERED(), 1, 0)"
+
+
+def build_remove_all(table: str, name: str = "Unfiltered") -> str:
+    """Measure with all filters removed from a table."""
+    return f"{name} =\nCALCULATE([Selected Measure], REMOVEFILTERS('{table}'))"
