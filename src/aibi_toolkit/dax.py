@@ -57,3 +57,12 @@ def build_pyo_measure(base: str, date_column: str, name: str) -> str:
         f"VAR _prev = CALCULATE([{base}], SAMEPERIODLASTYEAR('{date_column}'))\n"
         f"RETURN DIVIDE([{base}] - _prev, _prev)"
     )
+
+
+def build_cumulative_measure(base: str, date_column: str, name: str) -> str:
+    """Running-total measure."""
+    return (
+        f"{name} =\n"
+        f"VAR _max = MAX('{date_column}')\n"
+        f"RETURN CALCULATE([{base}], FILTER(ALL('{date_column}'), '{date_column}' <= _max))"
+    )
