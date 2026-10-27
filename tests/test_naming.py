@@ -11,3 +11,13 @@ def test_snake_case_camel():
 
 def test_display_name():
     assert to_display_name("total_sales_amount") == "Total Sales Amount"
+
+
+def test_truncate():
+    from aibi_toolkit.naming import truncate_name
+    assert truncate_name("abcdefgh", 4) == "abcd"
+
+
+def test_dedupe():
+    from aibi_toolkit.naming import dedupe_names
+    assert dedupe_names(["Rev", "Rev"]) == ["Rev", "Rev 2"]
