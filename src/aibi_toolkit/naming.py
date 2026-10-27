@@ -50,3 +50,16 @@ MEASURE_PREFIXES = {
 def suggest_measure_prefix(aggregation: str) -> str:
     """Suggest a display prefix for a measure based on its aggregation."""
     return MEASURE_PREFIXES.get(aggregation.lower(), aggregation.capitalize() + " of")
+
+
+def dedupe_names(names: list[str]) -> list[str]:
+    """Ensure unique names by appending 2, 3, ... on conflicts."""
+    seen, out = set(), []
+    for n in names:
+        base, i = n, 1
+        while n.lower() in seen:
+            i += 1
+            n = f"{base} {i}"
+        seen.add(n.lower())
+        out.append(n)
+    return out
