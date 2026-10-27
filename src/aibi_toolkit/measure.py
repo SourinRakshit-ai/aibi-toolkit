@@ -30,3 +30,11 @@ def detect_format(sample_value) -> str:
             return percent_format(1)
         return "#,0.00"
     raise TypeError(f"Unsupported sample type: {type(sample_value)!r}")
+
+
+DATE_FORMATS = {"short": "dd/MM/yyyy", "iso": "yyyy-MM-dd", "long": "d MMMM yyyy"}
+
+
+def date_format(style: str = "short") -> str:
+    """Look up a date format string by style name."""
+    return DATE_FORMATS[style]
