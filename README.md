@@ -47,3 +47,10 @@ to_display_name("total_sales_amount")  # -> 'Total Sales Amount'
 from aibi_toolkit.measure import currency_format
 currency_format("EUR", 0)  # -> '€#,0'
 ```
+
+## CLI commands
+
+```bash
+aibi summary model.json   # table/measure/column counts
+aibi tables model.json    # list table names
+```
