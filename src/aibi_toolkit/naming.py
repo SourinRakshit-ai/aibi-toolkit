@@ -68,3 +68,9 @@ def dedupe_names(names: list[str]) -> list[str]:
 def truncate_name(name: str, limit: int = 64) -> str:
     """Truncate a name to a character limit without trailing spaces."""
     return name[:limit].rstrip()
+
+
+def normalize_all(names: list[str]) -> list[str]:
+    """snake_case, de-abbreviate, then dedupe in one pass."""
+    cleaned = [expand_abbreviations(to_snake_case(n)) for n in names]
+    return dedupe_names(cleaned)
