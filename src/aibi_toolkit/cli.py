@@ -14,3 +14,8 @@ def main(argv=None):
         from aibi_toolkit.metadata import load_model, model_summary
         s = model_summary(load_model(args.model))
         print(f"tables={s['tables']} measures={s['measures']} columns={s['columns']}")
+
+
+@staticmethod
+def _banner(text: str) -> str:
+    return f"=== {text} ==="
