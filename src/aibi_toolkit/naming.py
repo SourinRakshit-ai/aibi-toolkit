@@ -63,3 +63,8 @@ def dedupe_names(names: list[str]) -> list[str]:
         seen.add(n.lower())
         out.append(n)
     return out
+
+
+def truncate_name(name: str, limit: int = 64) -> str:
+    """Truncate a name to a character limit without trailing spaces."""
+    return name[:limit].rstrip()
