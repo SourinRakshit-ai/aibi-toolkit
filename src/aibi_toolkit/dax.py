@@ -35,3 +35,11 @@ def build_mom_measure(base: str, name: str) -> str:
         f"VAR _prev = CALCULATE([{base}], PREVIOUSMONTH())\n"
         f"RETURN DIVIDE([{base}] - _prev, _prev)"
     )
+
+
+def build_rank_measure(column: str, name: str) -> str:
+    """Rank measure snippet."""
+    return (
+        f"{name} =\n"
+        f"RANKX(ALLSELECTED(), [{column}], , DESC, DENSE)"
+    )
