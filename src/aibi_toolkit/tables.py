@@ -14,3 +14,12 @@ def markdown_table(rows: list[dict], columns: list[str] | None = None) -> str:
         for r in rows
     ]
     return "\n".join([header, sep, *body])
+
+
+def align_column(rows: list[dict], column: str, right: bool = False) -> list[dict]:
+    """Pad a column's values for aligned plain-text output."""
+    width = max((len(str(r.get(column, ""))) for r in rows), default=0)
+    return [
+        {**r, column: str(r.get(column, "")).rjust(width) if right else str(r.get(column, "")).ljust(width)}
+        for r in rows
+    ]
