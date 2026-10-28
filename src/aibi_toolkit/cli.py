@@ -34,3 +34,8 @@ def _cmd_audit(model_path: str) -> int:
             print(f"[{category}] {n}")
     print(f"score={audit_score(model)}")
     return 1 if any(findings.values()) else 0
+
+
+def _register_audit(subparsers) -> None:
+    sub = subparsers.add_parser("audit", help="Run measure hygiene audit")
+    sub.add_argument("model")
