@@ -16,3 +16,13 @@ def test_cumulative():
     from aibi_toolkit.dax import build_cumulative_measure
     dax = build_cumulative_measure("Total", "'Calendar'[Date]", "Cum Total")
     assert "MAX" in dax and "CALCULATE" in dax
+
+
+def test_quarter():
+    from aibi_toolkit.dax import build_quarter_measure
+    assert "TOTALQTD" in build_quarter_measure("Total", "'Calendar'[Date]", "QTD")
+
+
+def test_previous():
+    from aibi_toolkit.dax import build_previous_period
+    assert "DATEADD" in build_previous_period("Total", "'Calendar'[Date]", "Prev")
