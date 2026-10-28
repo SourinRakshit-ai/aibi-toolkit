@@ -61,3 +61,13 @@ def relationships(model: dict) -> list[dict]:
         {"from": r.get("fromTable"), "to": r.get("toTable"), "active": r.get("isActive", True)}
         for r in model.get("relationships", [])
     ]
+
+
+def hidden_objects(model: dict) -> list[str]:
+    """List objects marked hidden in the model."""
+    out = []
+    for t in model.get("tables", []):
+        if t.get("isHidden"):
+            out.append(f"table:{t['name']}")
+        out.extend(f"column:{c['name']}" for c in t.get("columns", []) if c.get("isHidden"))
+    return out
