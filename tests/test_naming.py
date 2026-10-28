@@ -36,3 +36,13 @@ def test_pascal():
 def test_validate():
     from aibi_toolkit.naming import validate_name
     assert validate_name(" good name ") == ["leading/trailing whitespace"]
+
+
+def test_kebab():
+    from aibi_toolkit.naming import kebab_case
+    assert kebab_case("Total Sales") == "total-sales"
+
+
+def test_strip_numbers():
+    from aibi_toolkit.naming import strip_numbers
+    assert strip_numbers("Orders 2") == "Orders"
