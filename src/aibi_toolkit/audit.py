@@ -21,3 +21,13 @@ def audit_measures(model: dict) -> dict:
         if len(m["name"]) > 64:
             findings["long_names"].append(m["name"])
     return findings
+
+
+def audit_score(model: dict) -> int:
+    """Score 0-100 based on measure hygiene findings."""
+    measures = list_measures(model)
+    if not measures:
+        return 100
+    findings = audit_measures(model)
+    problems = sum(len(v) for v in findings.values())
+    return max(0, 100 - round(100 * problems / (2 * len(measures))))
