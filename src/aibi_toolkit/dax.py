@@ -79,3 +79,8 @@ def build_quarter_measure(base: str, date_column: str, name: str) -> str:
         f"{name} =\n"
         f"TOTALQTD([{base}], '{date_column}')"
     )
+
+
+def build_previous_period(base: str, shift: str, name: str) -> str:
+    """Shifted-period measure (e.g. previous month)."""
+    return f"{name} =\nCALCULATE([{base}], DATEADD('{shift}', -1, MONTH))"
