@@ -33,3 +33,15 @@ def test_relationships():
     from aibi_toolkit.metadata import relationships
     model = {"relationships": [{"fromTable": "Sales", "toTable": "Dim", "isActive": True}]}
     assert relationships(model)[0]["from"] == "Sales"
+
+
+def test_hidden_objects():
+    from aibi_toolkit.metadata import hidden_objects
+    model = {"tables": [{"name": "H", "isHidden": True, "columns": [{"name": "c", "isHidden": True}]}]}
+    assert hidden_objects(model) == ["table:H", "column:c"]
+
+
+def test_calculated_columns():
+    from aibi_toolkit.metadata import calculated_columns
+    model = {"tables": [{"name": "T", "columns": [{"name": "c", "type": "calculated", "expression": "1+1"}]}]}
+    assert calculated_columns(model)[0]["expression"] == "1+1"
