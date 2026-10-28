@@ -71,3 +71,11 @@ def build_cumulative_measure(base: str, date_column: str, name: str) -> str:
 def build_sliceresponsive_measure(base: str, name: str = "Default") -> str:
     """Baseline measure that ignores slicers for comparison views."""
     return f"{name} =\nCALCULATE([{base}], ALLSELECTED())"
+
+
+def build_quarter_measure(base: str, date_column: str, name: str) -> str:
+    """Quarter-to-date measure."""
+    return (
+        f"{name} =\n"
+        f"TOTALQTD([{base}], '{date_column}')"
+    )
