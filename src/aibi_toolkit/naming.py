@@ -92,3 +92,9 @@ def validate_name(name: str) -> list[str]:
     if len(name) > 64:
         issues.append("longer than 64 chars")
     return issues
+
+
+def kebab_case(name: str) -> str:
+    """Convert any name style to kebab-case."""
+    words = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", name).replace("_", " ").split()
+    return "-".join(w.lower() for w in words)
