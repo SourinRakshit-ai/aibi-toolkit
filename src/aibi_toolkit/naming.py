@@ -98,3 +98,8 @@ def kebab_case(name: str) -> str:
     """Convert any name style to kebab-case."""
     words = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", name).replace("_", " ").split()
     return "-".join(w.lower() for w in words)
+
+
+def strip_numbers(name: str) -> str:
+    """Remove numeric suffixes such as 'Table 2' -> 'Table'."""
+    return re.sub(r"\s+\d+$", "", name).strip()
