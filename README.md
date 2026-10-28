@@ -54,3 +54,9 @@ currency_format("EUR", 0)  # -> '€#,0'
 aibi summary model.json   # table/measure/column counts
 aibi tables model.json    # list table names
 ```
+
+## Auditing
+
+```bash
+aibi audit model.json   # hygiene findings + 0-100 score, non-zero exit on findings
+```
