@@ -31,3 +31,14 @@ def audit_score(model: dict) -> int:
     findings = audit_measures(model)
     problems = sum(len(v) for v in findings.values())
     return max(0, 100 - round(100 * problems / (2 * len(measures))))
+
+
+def audit_tables(model: dict) -> dict:
+    """Table-level findings: name issues and empty tables."""
+    out: dict[str, list[str]] = {"empty": [], "bad_names": []}
+    for t in model.get("tables", []):
+        if not t.get("columns") and not t.get("measures"):
+            out["empty"].append(t["name"])
+        if t["name"] != t["name"].strip() or "  " in t["name"]:
+            out["bad_names"].append(t["name"])
+    return out
