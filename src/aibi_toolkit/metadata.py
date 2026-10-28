@@ -71,3 +71,13 @@ def hidden_objects(model: dict) -> list[str]:
             out.append(f"table:{t['name']}")
         out.extend(f"column:{c['name']}" for c in t.get("columns", []) if c.get("isHidden"))
     return out
+
+
+def calculated_columns(model: dict) -> list[dict]:
+    """List calculated columns with their expressions."""
+    return [
+        {"table": t["name"], "name": c["name"], "expression": c.get("expression", "")}
+        for t in model.get("tables", [])
+        for c in t.get("columns", [])
+        if c.get("type") == "calculated"
+    ]
