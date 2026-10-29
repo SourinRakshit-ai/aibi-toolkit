@@ -66,3 +66,13 @@ aibi audit model.json   # hygiene findings + 0-100 score, non-zero exit on findi
 ```bash
 aibi lint model.json
 ```
+
+## All CLI commands
+
+```bash
+aibi summary model.json
+aibi tables model.json
+aibi audit model.json
+aibi lint model.json
+aibi export model.json out.csv
+```
