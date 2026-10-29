@@ -1,0 +1,19 @@
+name: Nightly build
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install build pytest .
+      - run: pytest -q
+      - run: python -m build
+        env:
+          NIGHTLY: "1"
