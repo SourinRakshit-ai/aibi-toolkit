@@ -25,3 +25,16 @@ def test_smart_format_currency():
 def test_resolve_format():
     from aibi_toolkit.measure import resolve_format
     assert resolve_format("pct") == "0.0%"
+
+
+def test_human_readable():
+    from aibi_toolkit.measure import human_readable
+    assert human_readable(1_240_000) == "1.2M"
+    assert human_readable(340) == "340"
+
+
+def test_format_key():
+    from aibi_toolkit.measure import format_key_from_format
+    assert format_key_from_format("0.0%") == "percent"
+    assert format_key_from_format("$#,0.00") == "currency"
+    assert format_key_from_format("#,0") == "number"
