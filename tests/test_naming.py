@@ -46,3 +46,10 @@ def test_kebab():
 def test_strip_numbers():
     from aibi_toolkit.naming import strip_numbers
     assert strip_numbers("Orders 2") == "Orders"
+
+
+def test_pluralize():
+    from aibi_toolkit.naming import pluralize
+    assert pluralize("Order") == "Orders"
+    assert pluralize("Category") == "Categories"
+    assert pluralize("Box") == "Boxes"
