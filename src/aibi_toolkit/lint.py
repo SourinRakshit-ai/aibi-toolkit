@@ -11,8 +11,7 @@ BAD_FUNCTIONS = {
 def lint_dax(expression: str) -> list[str]:
     """Return lint findings for a single DAX expression."""
     findings = []
-    if re.search(r"(?i)\bDIVIDE\s*\(\s*[^\s,]+\s*,\s*[^\s,]+\s*\)", expression) is None \
-            and re.search(r"(?i)\b/\s*", expression):
+    if "/" in expression and re.search(r"(?i)\bDIVIDE\s*\(", expression) is None:
         findings.append("use DIVIDE instead of / to guard divide-by-zero")
     for token, reason in BAD_FUNCTIONS.items():
         if token in expression:
