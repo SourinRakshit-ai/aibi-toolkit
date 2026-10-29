@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0 - 2026-10-30
+- Added: lint module (DIVIDE/IFERROR rules), integrity module (inactive,
+  bidirectional, cardinality checks), human-readable number scaling,
+  format category keys, article/pluralize helpers, CLI lint and export
+  commands, nightly build workflow.
+
 ## 0.4.0 - 2026-10-29
 - Added: audit module (findings + score), config module (TOML + validation),
   kebab_case, strip_numbers, QTD/DATEADD snippets, audit CLI command,
