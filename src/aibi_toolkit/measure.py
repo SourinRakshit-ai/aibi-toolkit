@@ -97,3 +97,12 @@ def human_readable(value: float) -> str:
         if scale == 1:
             return f"{value:,.0f}"
     return str(value)
+
+
+def format_key_from_format(fmt: str) -> str:
+    """Map a format string to a stable category key for grouping."""
+    if fmt.endswith("%"):
+        return "percent"
+    if fmt.count(",") and "$" in fmt:
+        return "currency"
+    return "number"
