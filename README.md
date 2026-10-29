@@ -60,3 +60,9 @@ aibi tables model.json    # list table names
 ```bash
 aibi audit model.json   # hygiene findings + 0-100 score, non-zero exit on findings
 ```
+
+## Linting
+
+```bash
+aibi lint model.json
+```
