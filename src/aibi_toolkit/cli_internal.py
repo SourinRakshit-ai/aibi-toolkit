@@ -21,3 +21,11 @@ def cmd_lint(model_path: str) -> int:
         for issue in issues:
             print(f"[lint] {name}: {issue}")
     return 1 if findings else 0
+
+
+def cmd_export(model_path: str, out_path: str) -> int:
+    from aibi_toolkit.metadata import load_model, list_measures
+    from aibi_toolkit.csvio import export_measures
+    n = export_measures(list_measures(load_model(model_path)), out_path)
+    print(f"exported {n} measures to {out_path}")
+    return 0
