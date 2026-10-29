@@ -20,3 +20,14 @@ def lint_dax(expression: str) -> list[str]:
     if re.search(r"(?i)\bIFERROR\b", expression):
         findings.append("IFERROR hides real errors; handle specific cases")
     return findings
+
+
+def lint_model(model: dict) -> dict:
+    """Lint every measure in the model, grouped by measure name."""
+    from .metadata import list_measures
+    out: dict[str, list[str]] = {}
+    for m in list_measures(model):
+        findings = lint_dax(m.get("expression", ""))
+        if findings:
+            out[m["name"]] = findings
+    return out
