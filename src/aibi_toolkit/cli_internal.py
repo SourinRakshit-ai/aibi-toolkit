@@ -11,3 +11,13 @@ def cmd_audit(model_path: str) -> int:
             print(f"[{category}] {n}")
     print(f"score={audit_score(model)}")
     return 1 if any(findings.values()) else 0
+
+
+def cmd_lint(model_path: str) -> int:
+    from aibi_toolkit.metadata import load_model
+    from aibi_toolkit.lint import lint_model
+    findings = lint_model(load_model(model_path))
+    for name, issues in findings.items():
+        for issue in issues:
+            print(f"[lint] {name}: {issue}")
+    return 1 if findings else 0
