@@ -11,3 +11,12 @@ def check_relationships(model: dict) -> dict:
         if r.get("crossFilterDirection") == "both":
             out["bidirectional"].append(label)
     return out
+
+
+def check_cardinality(model: dict) -> list[str]:
+    """Warn on relationships without declared cardinality."""
+    return [
+        f"{r.get('fromTable')} -> {r.get('toTable')}"
+        for r in model.get("relationships", [])
+        if not r.get("cardinality")
+    ]
