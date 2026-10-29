@@ -103,3 +103,20 @@ def kebab_case(name: str) -> str:
 def strip_numbers(name: str) -> str:
     """Remove numeric suffixes such as 'Table 2' -> 'Table'."""
     return re.sub(r"\s+\d+$", "", name).strip()
+
+
+VOWELS = "aeiouAEIOU"
+
+
+def a_or_an(word: str) -> str:
+    """Return the correct article for a word."""
+    return "an" if word and word[0] in VOWELS else "a"
+
+
+def pluralize(word: str) -> str:
+    """Naive pluralization for table names."""
+    if word.endswith(("s", "x", "ch", "sh")):
+        return word + "es"
+    if word.endswith("y") and len(word) > 1 and word[-2] not in VOWELS:
+        return word[:-1] + "ies"
+    return word + "s"
