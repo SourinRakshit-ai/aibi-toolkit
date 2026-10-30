@@ -20,3 +20,15 @@ def check_cardinality(model: dict) -> list[str]:
         for r in model.get("relationships", [])
         if not r.get("cardinality")
     ]
+
+
+def orphan_tables(model: dict) -> list[str]:
+    """Tables not connected to any relationship."""
+    rel_tables = set()
+    for r in model.get("relationships", []):
+        rel_tables.add(r.get("fromTable"))
+        rel_tables.add(r.get("toTable"))
+    return [
+        t["name"] for t in model.get("tables", [])
+        if t["name"] not in rel_tables and (t.get("columns") or t.get("measures"))
+    ]
