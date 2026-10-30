@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.0 - 2026-10-31
+- Added: autofix module (name + format fixes with change log), diagram
+  module (mermaid ER + table graphs), orphan-table detection, terminal
+  table renderer, CLI diagram/fix commands, starter config generator.
+
 ## 0.5.0 - 2026-10-30
 - Added: lint module (DIVIDE/IFERROR rules), integrity module (inactive,
   bidirectional, cardinality checks), human-readable number scaling,
