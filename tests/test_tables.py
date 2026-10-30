@@ -11,3 +11,10 @@ def test_align():
     rows = align_column([{"n": "a"}, {"n": "bbb"}], "n")
     assert rows[1]["n"] == "bbb"
     assert rows[0]["n"] == "a  "
+
+
+def test_plain_table():
+    from aibi_toolkit.tables import plain_table
+    out = plain_table([{"a": "1"}])
+    assert out.splitlines()[0] == "a"
+    assert out.splitlines()[1] == "-"
