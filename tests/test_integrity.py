@@ -17,3 +17,17 @@ def test_check_relationships():
 
 def test_cardinality():
     assert check_cardinality(MODEL) == ["Sales -> Dim", "A -> B"]
+
+
+def test_orphans():
+    from aibi_toolkit.integrity import orphan_tables
+    model = {
+        "relationships": [{"fromTable": "A", "toTable": "B"}],
+        "tables": [
+            {"name": "A", "columns": [{"name": "x"}]},
+            {"name": "B", "columns": []},
+            {"name": "Lone", "columns": [{"name": "y"}]},
+            {"name": "Hidden", "columns": []},
+        ],
+    }
+    assert orphan_tables(model) == ["Lone"]
