@@ -29,3 +29,10 @@ def cmd_export(model_path: str, out_path: str) -> int:
     n = export_measures(list_measures(load_model(model_path)), out_path)
     print(f"exported {n} measures to {out_path}")
     return 0
+
+
+def cmd_diagram(model_path: str) -> int:
+    from aibi_toolkit.metadata import load_model
+    from aibi_toolkit.diagram import mermaid_er
+    print(mermaid_er(load_model(model_path)))
+    return 0
