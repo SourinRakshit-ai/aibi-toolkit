@@ -13,3 +13,14 @@ def truncate(name: str, limit: int = 64) -> str:
     while out and out[-1] in "-_ ":
         out = out[:-1].rstrip()
     return out
+
+
+def suggest_format(expression: str) -> str:
+    """Suggest a format string from a measure expression."""
+    from .naming import expand_abbreviations
+    lowered = expression.lower()
+    if any(k in lowered for k in ("divide", "distinctcount", "count(")):
+        return "#,0"
+    if "%" in expand_abbreviations(lowered)[:40]:
+        return "0.0%"
+    return "$#,0.00"
