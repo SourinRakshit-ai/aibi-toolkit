@@ -12,3 +12,8 @@ def test_validate_ok():
 
 def test_validate_bad():
     assert validate_config({"max_name_length": -1})
+
+
+def test_starter_toml():
+    from aibi_toolkit.config import default_config_toml
+    assert "[aibi]" in default_config_toml()
