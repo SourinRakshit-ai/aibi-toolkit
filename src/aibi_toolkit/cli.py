@@ -18,7 +18,7 @@ def main(argv=None):
     for cmd, help_text in COMMANDS:
         s = sub.add_parser(cmd, help=help_text)
         s.add_argument("model")
-        if cmd == "export":
+        if cmd in ("export", "fix"):
             s.add_argument("out")
     args = parser.parse_args(argv)
     return _dispatch(args)
