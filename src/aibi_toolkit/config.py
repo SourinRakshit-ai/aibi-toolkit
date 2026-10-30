@@ -29,3 +29,10 @@ def validate_config(cfg: dict) -> list[str]:
     if not isinstance(cfg.get("percent_decimals"), int) or not 0 <= cfg["percent_decimals"] <= 4:
         errors.append("percent_decimals must be an integer 0-4")
     return errors
+
+
+def default_config_toml() -> str:
+    """Render a starter aibi.toml for users."""
+    lines = ["[aibi]"]
+    lines += [f'{k} = {v!r}' for k, v in DEFAULTS.items()]
+    return "\n".join(lines) + "\n"
