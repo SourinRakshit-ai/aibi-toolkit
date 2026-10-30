@@ -24,3 +24,18 @@ def suggest_format(expression: str) -> str:
     if "%" in expand_abbreviations(lowered)[:40]:
         return "0.0%"
     return "$#,0.00"
+
+
+def autofix_model(model: dict) -> dict:
+    """Apply non-destructive fixes; returns a change log."""
+    changes: list[str] = []
+    for t in model.get("tables", []):
+        for m in t.get("measures", []):
+            fixed = fix_measure_name(m["name"])
+            if fixed != m["name"]:
+                changes.append(f"measure '{m['name']}' -> '{fixed}'")
+                m["name"] = fixed
+            if not m.get("formatString"):
+                m["formatString"] = suggest_format(m.get("expression", ""))
+                changes.append(f"format for '{m['name']}' -> {m['formatString']}")
+    return {"changes": changes, "count": len(changes)}
