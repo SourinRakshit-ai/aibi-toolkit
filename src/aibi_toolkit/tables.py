@@ -23,3 +23,17 @@ def align_column(rows: list[dict], column: str, right: bool = False) -> list[dic
         {**r, column: str(r.get(column, "")).rjust(width) if right else str(r.get(column, "")).ljust(width)}
         for r in rows
     ]
+
+
+def plain_table(rows: list[dict], columns: list[str] | None = None) -> str:
+    """Render rows as a bordered plain-text table for terminals."""
+    if not rows:
+        return ""
+    columns = columns or list(rows[0].keys())
+    widths = [max(len(str(c)), *(len(str(r.get(c, ""))) for r in rows)) for c in columns]
+    header = " ".join(str(c).ljust(w) for c, w in zip(columns, widths))
+    sep = "-" * len(header)
+    lines = [header, sep]
+    for r in rows:
+        lines.append(" ".join(str(r.get(c, "")).ljust(w) for c, w in zip(columns, widths)))
+    return "\n".join(lines)
