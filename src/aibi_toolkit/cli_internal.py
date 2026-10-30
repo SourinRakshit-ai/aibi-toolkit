@@ -36,3 +36,16 @@ def cmd_diagram(model_path: str) -> int:
     from aibi_toolkit.diagram import mermaid_er
     print(mermaid_er(load_model(model_path)))
     return 0
+
+
+def cmd_fix(model_path: str, dry_run: bool = False) -> int:
+    from aibi_toolkit.autofix import autofix_model
+    from .metadata import load_model
+    import json
+    model = load_model(model_path)
+    result = autofix_model(model)
+    for c in result["changes"]:
+        print(f"fixed: {c}")
+    if not dry_run and result["count"]:
+        print(json.dumps(model, indent=2))
+    return 0 if result["count"] else 1
