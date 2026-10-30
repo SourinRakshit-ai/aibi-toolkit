@@ -76,3 +76,10 @@ aibi audit model.json
 aibi lint model.json
 aibi export model.json out.csv
 ```
+
+## Diagrams and auto-fixes
+
+```bash
+aibi diagram model.json       # mermaid ER diagram for the model
+aibi fix --dry-run model.json # preview naming/format fixes
+```
