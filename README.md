@@ -4,7 +4,7 @@ Small, dependency-light Python helpers for cleaning up Power BI / Tableau
 semantic-model metadata: naming conventions, measure format strings, DAX
 snippets, and CSV round-tripping.
 
-Status: v0.5 — lint, audit, integrity and export built in. See [CHANGELOG](CHANGELOG.md).
+Status: v0.6 — autofix, mermaid diagrams and integrity checks. See [CHANGELOG](CHANGELOG.md).
 
 ## Install
 
