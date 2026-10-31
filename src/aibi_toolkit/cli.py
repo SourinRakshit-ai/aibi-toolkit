@@ -121,3 +121,8 @@ def _dispatch(args) -> int:
     if args.command == "synth":
         return cli_internal.cmd_synth(args.out, getattr(args, "tables", 3))
     return 0
+
+
+def _extra_args_for(cmd: str) -> None:
+    parser_map = {"export": 1, "fix": 1, "report": 1, "synth": 1}
+    return parser_map.get(cmd, 0)
