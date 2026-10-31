@@ -57,3 +57,13 @@ def cmd_report(model_path: str, out_path: str) -> int:
     write_report(load_model(model_path), out_path)
     print(f"report written to {out_path}")
     return 0
+
+
+def cmd_synth(out_path: str, tables: int = 3) -> int:
+    import json
+    from aibi_toolkit.sample import sample_model
+    model = sample_model(tables=tables)
+    from pathlib import Path
+    Path(out_path).write_text(json.dumps(model, indent=2), encoding="utf-8")
+    print(f"sample model written to {out_path}")
+    return 0
