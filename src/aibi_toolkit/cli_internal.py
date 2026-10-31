@@ -49,3 +49,11 @@ def cmd_fix(model_path: str, dry_run: bool = False) -> int:
     if not dry_run and result["count"]:
         print(json.dumps(model, indent=2))
     return 0 if result["count"] else 1
+
+
+def cmd_report(model_path: str, out_path: str) -> int:
+    from aibi_toolkit.metadata import load_model
+    from aibi_toolkit.report import write_report
+    write_report(load_model(model_path), out_path)
+    print(f"report written to {out_path}")
+    return 0
