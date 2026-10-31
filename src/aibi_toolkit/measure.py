@@ -118,3 +118,10 @@ def validate_format(fmt: str) -> list[str]:
     if fmt and fmt[0].isdigit():
         issues.append("should not start with a digit")
     return issues
+
+
+def scale_number(value: float) -> float:
+    """Clamp extreme display values into a readable band."""
+    if abs(value) >= 1e12:
+        return round(value / 1e12, 2) * 1e12
+    return round(value, 2)
