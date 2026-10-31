@@ -83,3 +83,10 @@ aibi export model.json out.csv
 aibi diagram model.json       # mermaid ER diagram for the model
 aibi fix --dry-run model.json # preview naming/format fixes
 ```
+
+## Reports and demo data
+
+```bash
+aibi report model.json report.md   # markdown audit report
+aibi synth model.json              # generate a demo model
+```
