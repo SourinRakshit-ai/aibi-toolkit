@@ -106,3 +106,15 @@ def format_key_from_format(fmt: str) -> str:
     if fmt.count(",") and "$" in fmt:
         return "currency"
     return "number"
+
+
+def validate_format(fmt: str) -> list[str]:
+    """Check a custom format string for common mistakes."""
+    issues = []
+    if fmt.count("{") != fmt.count("}"):
+        issues.append("unbalanced braces")
+    if "%" in fmt and "$" in fmt:
+        issues.append("mixes percent and currency tokens")
+    if fmt and fmt[0].isdigit():
+        issues.append("should not start with a digit")
+    return issues
