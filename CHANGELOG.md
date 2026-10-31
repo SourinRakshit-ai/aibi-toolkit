@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.0 - 2026-11-01
+- Added: report module (markdown audit report), sample module
+  (deterministic demo models and CSVs), format validation + clamping,
+  CLI report/synth commands, mkdocs docs site with strict build CI.
+
 ## 0.6.0 - 2026-10-31
 - Added: autofix module (name + format fixes with change log), diagram
   module (mermaid ER + table graphs), orphan-table detection, terminal
