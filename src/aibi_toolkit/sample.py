@@ -24,3 +24,19 @@ def sample_model(tables: int = 3, measures_per_table: int = 2, seed: int = 42) -
             "cardinality": "manyToOne",
         })
     return model
+
+
+def sample_csv(path, rows: int = 20, seed: int = 42) -> int:
+    """Write a demo measures CSV; returns row count."""
+    from .csvio import export_measures
+    rng = random.Random(seed)
+    rows_data = [
+        {
+            "table": rng.choice(["Sales", "Customer", "Product"]),
+            "name": f"Measure {n}",
+            "expression": "SUM()",
+            "formatString": "" if n % 3 else "#,0",
+        }
+        for n in range(1, rows + 1)
+    ]
+    return export_measures(rows_data, path)
