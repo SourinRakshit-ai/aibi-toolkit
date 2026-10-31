@@ -42,7 +42,7 @@ def test_format_key():
 
 def test_validate_format():
     from aibi_toolkit.measure import validate_format
-    assert validate_format("0.0%$") == ["mixes percent and currency tokens"]
+    assert validate_format("%$") == ["mixes percent and currency tokens"]
     assert validate_format("#,0") == []
 
 
