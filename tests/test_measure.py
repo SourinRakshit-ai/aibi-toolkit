@@ -38,3 +38,14 @@ def test_format_key():
     assert format_key_from_format("0.0%") == "percent"
     assert format_key_from_format("$#,0.00") == "currency"
     assert format_key_from_format("#,0") == "number"
+
+
+def test_validate_format():
+    from aibi_toolkit.measure import validate_format
+    assert validate_format("0.0%$") == ["mixes percent and currency tokens"]
+    assert validate_format("#,0") == []
+
+
+def test_scale():
+    from aibi_toolkit.measure import scale_number
+    assert scale_number(1.005) == 1.0
