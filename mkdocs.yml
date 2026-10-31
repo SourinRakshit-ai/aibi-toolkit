@@ -1,0 +1,13 @@
+site_name: aibi-toolkit
+theme:
+  name: material
+nav:
+  - Home: index.md
+  - Naming: naming.md
+  - Formats: format-strings.md
+  - DAX snippets: dax.md
+  - Auditing: audit.md
+  - Linting: lint.md
+  - Diagrams: diagram.md
+  - Auto-fixes: autofix.md
+  - Tables: tables.md
