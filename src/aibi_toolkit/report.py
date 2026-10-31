@@ -60,3 +60,9 @@ def _relationship_findings(model: dict) -> list[str]:
            f"- Bidirectional filters: {len(r['bidirectional'])}",
            f"- Missing cardinality: {len(missing)}", ""]
     return out
+
+
+def write_report(model: dict, path, title: str = "Model Audit Report") -> None:
+    """Generate and write the report to a markdown file."""
+    from pathlib import Path
+    Path(path).write_text(generate_report(model, title), encoding="utf-8")
