@@ -32,3 +32,15 @@ def profile_model(model: dict) -> dict:
         if expression_weight(m.get("expression", "")) >= 5
     ]
     return {"count": len(weights), "max": weights[-1], "avg": avg, "heavy": heavy}
+
+
+def heavy_meaning_change(model: dict) -> dict:
+    """Profile with a stricter 'heavy' threshold for reports."""
+    from .metadata import list_measures
+    measures = list_measures(model)
+    heavy = [
+        {"name": m["name"], "weight": expression_weight(m.get("expression", ""))}
+        for m in measures
+    ]
+    heavy.sort(key=lambda x: -x["weight"])
+    return {"top5": heavy[:5], "worst": heavy[0]["weight"] if heavy else 0}
