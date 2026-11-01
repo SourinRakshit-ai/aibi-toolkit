@@ -53,3 +53,13 @@ def test_pluralize():
     assert pluralize("Order") == "Orders"
     assert pluralize("Category") == "Categories"
     assert pluralize("Box") == "Boxes"
+
+
+def test_split_words():
+    from aibi_toolkit.naming import split_words
+    assert split_words("totalSales hintText") == ["total", "Sales", "hint", "Text"]
+
+
+def test_initials():
+    from aibi_toolkit.naming import initials
+    assert initials("Total Sales") == "TS"
