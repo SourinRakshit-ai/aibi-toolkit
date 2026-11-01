@@ -44,3 +44,12 @@ def heavy_meaning_change(model: dict) -> dict:
     ]
     heavy.sort(key=lambda x: -x["weight"])
     return {"top5": heavy[:5], "worst": heavy[0]["weight"] if heavy else 0}
+
+
+def weight_tier(weight: int) -> str:
+    """Classify a weight into light/medium/heavy for display."""
+    if weight <= 2:
+        return "light"
+    if weight <= 5:
+        return "medium"
+    return "heavy"
