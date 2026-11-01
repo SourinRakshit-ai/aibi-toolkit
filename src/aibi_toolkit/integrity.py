@@ -32,3 +32,12 @@ def orphan_tables(model: dict) -> list[str]:
         t["name"] for t in model.get("tables", [])
         if t["name"] not in rel_tables and (t.get("columns") or t.get("measures"))
     ]
+
+
+def role_playing_dimensions(model: dict) -> dict:
+    """Detect a date/lookup table joined multiple times."""
+    counts: dict[str, list[str]] = {}
+    for r in model.get("relationships", []):
+        to_table = r.get("toTable")
+        counts.setdefault(to_table, []).append(r.get("fromTable", "?"))
+    return {t: srcs for t, srcs in counts.items() if len(srcs) > 1}
