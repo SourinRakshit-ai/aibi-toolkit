@@ -120,3 +120,15 @@ def pluralize(word: str) -> str:
     if word.endswith("y") and len(word) > 1 and word[-2] not in VOWELS:
         return word[:-1] + "ies"
     return word + "s"
+
+
+def split_words(name: str) -> list[str]:
+    """Split any naming style into words without separators."""
+    spaced = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", name)
+    spaced = re.sub(r"[(){}\[\]]", " ", spaced)
+    return [w for w in spaced.replace("_", " ").replace("-", " ").split() if w]
+
+
+def initials(name: str) -> str:
+    """Abbreviate a name to initials, e.g. 'Total Sales' -> 'TS'."""
+    return "".join(w[0].upper() for w in split_words(name))
