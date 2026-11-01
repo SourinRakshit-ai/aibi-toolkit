@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.0 - 2026-11-02
+- Added: profile module (expression weights, tiers, top-5 rankings),
+  role-playing dimension detection, split_words/initials naming helpers,
+  CLI profile command, PR auto-labeler workflow.
+
 ## 0.7.0 - 2026-11-01
 - Added: report module (markdown audit report), sample module
   (deterministic demo models and CSVs), format validation + clamping,
