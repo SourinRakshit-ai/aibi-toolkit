@@ -17,3 +17,6 @@ aibi --help
 | fix      | naming/format auto-fixes         |
 | report   | markdown audit report            |
 | synth    | demo model generator             |
+
+New in v0.8: `aibi profile` for expression complexity, role-playing
+dimension detection, and word/naming utilities.
