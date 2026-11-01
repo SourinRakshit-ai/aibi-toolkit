@@ -67,3 +67,13 @@ def cmd_synth(out_path: str, tables: int = 3) -> int:
     Path(out_path).write_text(json.dumps(model, indent=2), encoding="utf-8")
     print(f"sample model written to {out_path}")
     return 0
+
+
+def cmd_profile(model_path: str) -> int:
+    from aibi_toolkit.metadata import load_model
+    from aibi_toolkit.profile import profile_model
+    p = profile_model(load_model(model_path))
+    print(f"count={p['count']} avg={p['avg']} max={p['max']}")
+    for name in p["heavy"]:
+        print(f"[heavy] {name}")
+    return 0
