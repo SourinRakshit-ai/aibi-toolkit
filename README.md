@@ -90,3 +90,9 @@ aibi fix --dry-run model.json # preview naming/format fixes
 aibi report model.json report.md   # markdown audit report
 aibi synth model.json              # generate a demo model
 ```
+
+## Profiling
+
+```bash
+aibi profile model.json   # expression complexity stats
+```
