@@ -31,3 +31,12 @@ def test_orphans():
         ],
     }
     assert orphan_tables(model) == ["Lone"]
+
+
+def test_role_playing():
+    from aibi_toolkit.integrity import role_playing_dimensions
+    model = {"relationships": [
+        {"fromTable": "Sales", "toTable": "Date"},
+        {"fromTable": "Orders", "toTable": "Date"},
+    ]}
+    assert role_playing_dimensions(model)["Date"] == ["Sales", "Orders"]
