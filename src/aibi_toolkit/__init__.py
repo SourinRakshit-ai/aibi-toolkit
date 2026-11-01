@@ -3,12 +3,12 @@
 from . import (  # noqa: F401
     naming, measure, dax, metadata, csvio,
     filters, tables, audit, config, lint, integrity,
-    autofix, diagram, report, sample,
+    autofix, diagram, report, sample, profile,
 )
 
-__version__ = "0.7.0"
+__version__ = "0.8.0"
 __all__ = [
     "naming", "measure", "dax", "metadata", "csvio",
     "filters", "tables", "audit", "config", "lint", "integrity",
-    "autofix", "diagram", "report", "sample",
+    "autofix", "diagram", "report", "sample", "profile",
 ]
