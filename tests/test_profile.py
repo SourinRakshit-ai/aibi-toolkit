@@ -14,3 +14,10 @@ def test_profile_empty():
 def test_profile_flags_heavy():
     model = {"tables": [{"name": "T", "measures": [{"name": "Big", "expression": "CALCULATE(FILTER(CALCULATE(FILTER(1),1),1),1)"}]}]}
     assert "Big" in profile_model(model)["heavy"]
+
+
+def test_weight_tier():
+    from aibi_toolkit.profile import weight_tier
+    assert weight_tier(1) == "light"
+    assert weight_tier(4) == "medium"
+    assert weight_tier(7) == "heavy"
