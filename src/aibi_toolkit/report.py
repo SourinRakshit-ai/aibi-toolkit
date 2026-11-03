@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """Generate a markdown audit report for a semantic model."""
 
 from .audit import audit_measures, audit_tables, audit_score
