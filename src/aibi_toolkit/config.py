@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """Per-project config for aibi-toolkit (TOML)."""
 
 from pathlib import Path
