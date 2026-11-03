@@ -26,3 +26,22 @@ aibi fix --dry-run model.json  # preview naming/format fixes
 ```
 
 See the [docs index](docs/index.md) for the full command list.
+
+## Framework coverage
+
+| Area               | Module          |
+| ------------------ | --------------- |
+| Naming             | `naming`        |
+| Format strings     | `measure`       |
+| DAX snippets       | `dax`, `filters`|
+| Model inspection   | `metadata`      |
+| Auditing + linting | `audit`, `lint` |
+| Integrity          | `integrity`     |
+| Autofixes          | `autofix`       |
+| Diagrams           | `diagram`       |
+| Reports            | `report`        |
+| Demo data          | `sample`        |
+| Renderers          | `tables`        |
+| Configuration      | `config`        |
+| Profiling          | `profile`       |
+| CSV round-trip     | `csvio`         |
