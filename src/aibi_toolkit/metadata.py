@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """Load and inspect semantic-model metadata dumps (TMDL-exported JSON)."""
 
 import json
