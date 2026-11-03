@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """Automatic naming fixes for semantic-model dumps."""
 
 
