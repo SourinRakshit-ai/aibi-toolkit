@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """Format-string helpers for DAX measures."""
 
 CURRENCY_SYMBOLS = {"USD": "$", "EUR": "€", "GBP": "£", "INR": "₹"}
