@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """Name normalization helpers for tables, columns and measures."""
 
 import re
