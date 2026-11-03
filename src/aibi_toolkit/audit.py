@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """Model hygiene audits for semantic models."""
 
 from .metadata import list_measures, model_summary
