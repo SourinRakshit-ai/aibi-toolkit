@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """CSV export/import of measure inventories."""
 
 import csv
