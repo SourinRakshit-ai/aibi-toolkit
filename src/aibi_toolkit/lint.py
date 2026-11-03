@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """Static checks for DAX expressions and measure definitions."""
 
 import re
