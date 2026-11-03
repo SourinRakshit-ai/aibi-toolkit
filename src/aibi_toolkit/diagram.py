@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """Mermaid ER-diagram export of model relationships."""
 
 
