@@ -1,10 +1,13 @@
 # aibi-toolkit
 
-Small, dependency-light Python helpers for cleaning up Power BI / Tableau
-semantic-model metadata: naming conventions, measure format strings, DAX
-snippets, and CSV round-tripping.
+CLI + library for cleaning up Power BI / Tableau semantic-model metadata:
+naming conventions, format strings, DAX snippets, hygiene auditing, linting,
+relationship integrity, mermaid diagrams, and markdown audit reports.
 
-Status: v0.8 — profiling, integrity and docs site. See [CHANGELOG](CHANGELOG.md).
+[![CI](https://github.com/SourinRakshit-ai/aibi-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/SourinRakshit-ai/aibi-toolkit/actions/workflows/ci.yml)
+[![Lint](https://github.com/SourinRakshit-ai/aibi-toolkit/actions/workflows/lint.yml/badge.svg)](https://github.com/SourinRakshit-ai/aibi-toolkit/actions/workflows/lint.yml)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ## Install
 
@@ -12,87 +15,14 @@ Status: v0.8 — profiling, integrity and docs site. See [CHANGELOG](CHANGELOG.m
 pip install .
 ```
 
-## CLI usage
+## Quick start
 
 ```bash
-aibi summary path/to/model.json
+aibi summary model.json    # object counts
+aibi audit model.json      # hygiene findings + 0-100 score
+aibi lint model.json       # DAX rule findings
+aibi report model.json out.md  # markdown audit report
+aibi fix --dry-run model.json  # preview naming/format fixes
 ```
 
-## Modules
-
-| Module      | Purpose                                  |
-| ----------- | ---------------------------------------- |
-| `naming`    | snake_case / display-name normalization  |
-| `measure`   | format-string builders and detection     |
-| `dax`       | common DAX measure snippets              |
-| `metadata`  | model JSON inspection and summaries      |
-| `csvio`     | CSV export/import of measure inventories |
-
-## Testing
-
-```bash
-make test
-```
-
-## Python usage
-
-```python
-from aibi_toolkit.naming import to_display_name
-to_display_name("total_sales_amount")  # -> 'Total Sales Amount'
-```
-
-## Format helpers
-
-```python
-from aibi_toolkit.measure import currency_format
-currency_format("EUR", 0)  # -> '€#,0'
-```
-
-## CLI commands
-
-```bash
-aibi summary model.json   # table/measure/column counts
-aibi tables model.json    # list table names
-```
-
-## Auditing
-
-```bash
-aibi audit model.json   # hygiene findings + 0-100 score, non-zero exit on findings
-```
-
-## Linting
-
-```bash
-aibi lint model.json
-```
-
-## All CLI commands
-
-```bash
-aibi summary model.json
-aibi tables model.json
-aibi audit model.json
-aibi lint model.json
-aibi export model.json out.csv
-```
-
-## Diagrams and auto-fixes
-
-```bash
-aibi diagram model.json       # mermaid ER diagram for the model
-aibi fix --dry-run model.json # preview naming/format fixes
-```
-
-## Reports and demo data
-
-```bash
-aibi report model.json report.md   # markdown audit report
-aibi synth model.json              # generate a demo model
-```
-
-## Profiling
-
-```bash
-aibi profile model.json   # expression complexity stats
-```
+See the [docs index](docs/index.md) for the full command list.
