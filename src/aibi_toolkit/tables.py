@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """Plain-text table rendering for CLI output."""
 
 
