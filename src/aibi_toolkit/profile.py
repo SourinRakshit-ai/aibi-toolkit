@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """Profile a model's expression complexity and weight."""
 
 EXPRESSION_WEIGHTS = {
