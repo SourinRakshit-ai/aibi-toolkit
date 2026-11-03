@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0 - 2026-11-03
+- Release: API frozen. Postponed annotations across all modules, bare-pytest
+  dev experience, README with badges and coverage table.
+
 ## 0.8.0 - 2026-11-02
 - Added: profile module (expression weights, tiers, top-5 rankings),
   role-playing dimension detection, split_words/initials naming helpers,
