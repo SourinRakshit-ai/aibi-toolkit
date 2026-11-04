@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2 - 2026-11-04
+- Fixed: report/synth output-path parsing, missing --dry-run flag
+  registration, and four duplicated COMMANDS/_dispatch blocks in cli.py.
+- Added: end-to-end CLI tests (76 passing).
+
 ## 1.0.1 - 2026-11-04
 - Fixed: CI on Python 3.10 — `tomllib` requires 3.11, so the config module
   now ships a minimal fallback parser behind a guarded import.
