@@ -5,6 +5,23 @@ description = "Helpers for BI semantic-model metadata cleanup"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
+authors = [{ name = "Sourin Rakshit" }]
+keywords = ["powerbi", "tableau", "dax", "tmdl", "semantic-model", "lint"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://github.com/SourinRakshit-ai/aibi-toolkit"
+Changelog = "https://github.com/SourinRakshit-ai/aibi-toolkit/blob/main/CHANGELOG.md"
+Issues = "https://github.com/SourinRakshit-ai/aibi-toolkit/issues"
 
 [project.scripts]
 aibi = "aibi_toolkit.cli:main"
