@@ -21,6 +21,7 @@ WRITE_TARGETS = ("export", "report")
 
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="aibi", description=__doc__)
+    parser.add_argument("--version", action="version", version=f"aibi-toolkit {__import__('aibi_toolkit').__version__}")
     sub = parser.add_subparsers(dest="command", required=True)
     for cmd, help_text in COMMANDS:
         s = sub.add_parser(cmd, help=help_text)
