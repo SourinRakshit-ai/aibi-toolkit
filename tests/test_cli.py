@@ -54,3 +54,12 @@ def test_fix_dry_run_flag_parses(model_path, capsys):
 def test_audit_and_lint_exit_cleanly(model_path):
     assert dispatch_argv("audit", model_path) in (0, 1)
     assert dispatch_argv("lint", model_path) in (0, 1)
+
+
+def test_version_flag(capsys):
+    import pytest as _pytest
+    from aibi_toolkit.cli import main as _main
+    with _pytest.raises(SystemExit) as e:
+        _main(["--version"])
+    assert e.value.code == 0
+    assert "aibi-toolkit" in capsys.readouterr().out
