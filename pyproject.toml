@@ -1,6 +1,6 @@
 [project]
 name = "aibi-toolkit"
-version = "1.0.2"
+version = "1.0.3"
 description = "Helpers for BI semantic-model metadata cleanup"
 readme = "README.md"
 requires-python = ">=3.10"

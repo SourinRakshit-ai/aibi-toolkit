@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3 - 2026-11-05
+- Added: --version flag, PyPI metadata and project URLs.
+- CI: run-cancellation, GitHub Pages deploy for the docs site.
+
 ## 1.0.2 - 2026-11-04
 - Fixed: report/synth output-path parsing, missing --dry-run flag
   registration, and four duplicated COMMANDS/_dispatch blocks in cli.py.
