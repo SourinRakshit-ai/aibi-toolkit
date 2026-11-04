@@ -25,7 +25,7 @@ aibi report model.json out.md  # markdown audit report
 aibi fix --dry-run model.json  # preview naming/format fixes
 ```
 
-See the [docs index](docs/index.md) for the full command list.
+Online docs: <https://github.com/SourinRakshit-ai/aibi-toolkit> · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
 
 ## Framework coverage
 
