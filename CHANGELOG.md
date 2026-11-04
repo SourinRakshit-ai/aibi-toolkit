@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 - 2026-11-04
+- Fixed: CI on Python 3.10 — `tomllib` requires 3.11, so the config module
+  now ships a minimal fallback parser behind a guarded import.
+- Tests: 70 passing.
+
 ## 1.0.0 - 2026-11-03
 - Release: API frozen. Postponed annotations across all modules, bare-pytest
   dev experience, README with badges and coverage table.
