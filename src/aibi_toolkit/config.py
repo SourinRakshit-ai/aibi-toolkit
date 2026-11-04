@@ -3,7 +3,11 @@ from __future__ import annotations
 """Per-project config for aibi-toolkit (TOML)."""
 
 from pathlib import Path
-import tomllib
+
+try:
+    import tomllib
+except ModuleNotFoundError:  # Python 3.10: stdlib tomllib landed in 3.11
+    tomllib = None
 
 DEFAULTS = {
     "max_name_length": 64,
@@ -12,12 +16,39 @@ DEFAULTS = {
 }
 
 
+def _parse_simple_toml(text: str) -> dict:
+    """Minimal [section] key = value parser for when tomllib is unavailable."""
+    data: dict = {}
+    section: str | None = None
+    for raw in text.splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if not line:
+            continue
+        if line.startswith("[") and line.endswith("]"):
+            section = line[1:-1].strip()
+            data.setdefault(section, {})
+        elif "=" in line and section is not None:
+            key, value = (part.strip() for part in line.split("=", 1))
+            if value.startswith(("'", '"')):
+                parsed: object = value[1:-1]
+            elif value.lower() in ("true", "false"):
+                parsed = value.lower() == "true"
+            else:
+                try:
+                    parsed = int(value)
+                except ValueError:
+                    parsed = value
+            data[section][key] = parsed
+    return data
+
+
 def load_config(path) -> dict:
     """Load aibi config from TOML, falling back to defaults."""
     p = Path(path)
     if not p.exists():
         return dict(DEFAULTS)
-    data = tomllib.loads(p.read_text(encoding="utf-8"))
+    text = p.read_text(encoding="utf-8")
+    data = tomllib.loads(text) if tomllib is not None else _parse_simple_toml(text)
     return {**DEFAULTS, **data.get("aibi", {})}
 
 
