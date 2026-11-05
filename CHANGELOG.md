@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0 - 2026-11-06
+- Added: `--json` output mode for `audit`, `lint` and `profile` (#1).
+  Exit codes unchanged, so existing CI gates keep working in both modes.
+
 ## 1.0.3 - 2026-11-05
 - Added: --version flag, PyPI metadata and project URLs.
 - CI: run-cancellation, GitHub Pages deploy for the docs site.
