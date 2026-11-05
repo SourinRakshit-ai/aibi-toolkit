@@ -34,12 +34,15 @@ def main(argv=None):
             s.add_argument("out")
         if cmd == "fix":
             s.add_argument("--dry-run", action="store_true", help="print findings without applying")
+        if cmd in ("audit", "lint", "profile"):
+            s.add_argument("--json", action="store_true", help="emit machine-readable JSON instead of text")
     args = parser.parse_args(argv)
     return _dispatch(args)
 
 
 def _dispatch(args) -> int:
     from . import cli_internal
+    json_flag = getattr(args, "json", False)
     if args.command == "summary":
         from aibi_toolkit.metadata import load_model, model_summary
         s = model_summary(load_model(args.model))
@@ -51,9 +54,9 @@ def _dispatch(args) -> int:
             print(t)
         return 0
     if args.command == "audit":
-        return cli_internal.cmd_audit(args.model)
+        return cli_internal.cmd_audit(args.model, json_out=json_flag)
     if args.command == "lint":
-        return cli_internal.cmd_lint(args.model)
+        return cli_internal.cmd_lint(args.model, json_out=json_flag)
     if args.command == "export":
         return cli_internal.cmd_export(args.model, args.out)
     if args.command == "diagram":
@@ -65,5 +68,5 @@ def _dispatch(args) -> int:
     if args.command == "synth":
         return cli_internal.cmd_synth(args.out, args.tables)
     if args.command == "profile":
-        return cli_internal.cmd_profile(args.model)
+        return cli_internal.cmd_profile(args.model, json_out=json_flag)
     return 0

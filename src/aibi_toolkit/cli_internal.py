@@ -1,11 +1,15 @@
 """Internal CLI command implementations, split out for readability."""
 
 
-def cmd_audit(model_path: str) -> int:
+def cmd_audit(model_path: str, json_out: bool = False) -> int:
+    import json
     from aibi_toolkit.metadata import load_model
     from aibi_toolkit.audit import audit_measures, audit_score
     model = load_model(model_path)
     findings = audit_measures(model)
+    if json_out:
+        print(json.dumps({"score": audit_score(model), "findings": findings}, indent=2))
+        return 1 if any(findings.values()) else 0
     for category, names in findings.items():
         for n in names:
             print(f"[{category}] {n}")
@@ -13,10 +17,14 @@ def cmd_audit(model_path: str) -> int:
     return 1 if any(findings.values()) else 0
 
 
-def cmd_lint(model_path: str) -> int:
+def cmd_lint(model_path: str, json_out: bool = False) -> int:
+    import json
     from aibi_toolkit.metadata import load_model
     from aibi_toolkit.lint import lint_model
     findings = lint_model(load_model(model_path))
+    if json_out:
+        print(json.dumps({"lint": findings}, indent=2))
+        return 1 if findings else 0
     for name, issues in findings.items():
         for issue in issues:
             print(f"[lint] {name}: {issue}")
@@ -69,10 +77,14 @@ def cmd_synth(out_path: str, tables: int = 3) -> int:
     return 0
 
 
-def cmd_profile(model_path: str) -> int:
+def cmd_profile(model_path: str, json_out: bool = False) -> int:
+    import json
     from aibi_toolkit.metadata import load_model
     from aibi_toolkit.profile import profile_model
     p = profile_model(load_model(model_path))
+    if json_out:
+        print(json.dumps(p, indent=2))
+        return 0
     print(f"count={p['count']} avg={p['avg']} max={p['max']}")
     for name in p["heavy"]:
         print(f"[heavy] {name}")

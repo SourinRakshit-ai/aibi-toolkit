@@ -21,6 +21,7 @@ pip install .
 aibi summary model.json    # object counts
 aibi audit model.json      # hygiene findings + 0-100 score
 aibi lint model.json       # DAX rule findings
+aibi audit model.json --json   # machine-readable output (also: lint, profile)
 aibi report model.json out.md  # markdown audit report
 aibi fix --dry-run model.json  # preview naming/format fixes
 ```
