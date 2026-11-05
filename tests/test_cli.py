@@ -56,6 +56,28 @@ def test_audit_and_lint_exit_cleanly(model_path):
     assert dispatch_argv("lint", model_path) in (0, 1)
 
 
+def test_audit_json_output(model_path, capsys):
+    import json as _json
+    assert dispatch_argv("audit", model_path, "--json") in (0, 1)
+    payload = _json.loads(capsys.readouterr().out)
+    assert "score" in payload and "findings" in payload
+    assert all(isinstance(v, list) for v in payload["findings"].values())
+
+
+def test_lint_json_output(model_path, capsys):
+    import json as _json
+    assert dispatch_argv("lint", model_path, "--json") in (0, 1)
+    payload = _json.loads(capsys.readouterr().out)
+    assert "lint" in payload
+
+
+def test_profile_json_output(model_path, capsys):
+    import json as _json
+    assert dispatch_argv("profile", model_path, "--json") == 0
+    payload = _json.loads(capsys.readouterr().out)
+    assert {"count", "avg", "max", "heavy"} <= set(payload)
+
+
 def test_version_flag(capsys):
     import pytest as _pytest
     from aibi_toolkit.cli import main as _main
