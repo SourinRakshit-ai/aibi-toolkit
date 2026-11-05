@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.1 - 2026-11-06
+- Added: README quick-start smoke tests — every documented command runs against
+  a generated sample model in CI (#4).
+- CI: workflow actions pinned to immutable commit SHAs, with a weekly
+  dependabot config to keep the pins current (#2).
+
 ## 1.1.0 - 2026-11-06
 - Added: `--json` output mode for `audit`, `lint` and `profile` (#1).
   Exit codes unchanged, so existing CI gates keep working in both modes.
