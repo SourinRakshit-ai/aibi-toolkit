@@ -1,6 +1,6 @@
 [project]
 name = "aibi-toolkit"
-version = "1.1.1"
+version = "1.1.2"
 description = "Helpers for BI semantic-model metadata cleanup"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -32,3 +32,8 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.mypy]
+disallow_untyped_defs = true
+disallow_any_generics = true
+warn_return_any = true

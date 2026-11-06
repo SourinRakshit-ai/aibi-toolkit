@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.2 - 2026-11-06
+- Type-hardening: full `mypy --strict` compliance across all 19 modules
+  (`Model = dict[str, Any]` alias, typed annotations, narrowed `load_model`),
+  typecheck job added to the lint workflow (#3).
+- Fixed: README smoke tests wrote output files into the repo root;
+  they now run from a temp directory.
+
 ## 1.1.1 - 2026-11-06
 - Added: README quick-start smoke tests — every documented command runs against
   a generated sample model in CI (#4).
