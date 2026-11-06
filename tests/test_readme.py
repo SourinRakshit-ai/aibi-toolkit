@@ -26,10 +26,12 @@ def _quick_start_commands():
 
 
 @pytest.mark.parametrize("argv", [list(a) for a in _quick_start_commands()])
-def test_readme_quick_start(argv, tmp_path, capsys):
+def test_readme_quick_start(argv, tmp_path, capsys, monkeypatch):
     model = tmp_path / "model.json"
     model.write_text(json.dumps(sample_model(tables=2)), encoding="utf-8")
     argv = [str(model) if a == "model.json" else a for a in argv]
+    # Run from tmp_path so output paths like out.md never land in the repo root.
+    monkeypatch.chdir(tmp_path)
     rc = main(argv)
     assert rc in (0, 1)
     output = capsys.readouterr().out
