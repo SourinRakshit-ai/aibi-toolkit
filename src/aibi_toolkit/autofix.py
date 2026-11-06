@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+from typing import Any
+from .metadata import Model
+
+
 """Automatic naming fixes for semantic-model dumps."""
 
 
@@ -28,7 +32,7 @@ def suggest_format(expression: str) -> str:
     return "$#,0.00"
 
 
-def autofix_model(model: dict) -> dict:
+def autofix_model(model: Model) -> dict[str, Any]:
     """Apply non-destructive fixes; returns a change log."""
     changes: list[str] = []
     for t in model.get("tables", []):

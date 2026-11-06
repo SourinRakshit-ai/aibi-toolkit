@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from .metadata import Model
+
 """Static checks for DAX expressions and measure definitions."""
 
 import re
@@ -8,7 +10,6 @@ BAD_FUNCTIONS = {
     "ALLSELECTED()": "no-argument ALLSELECTED is ambiguous in visuals",
     "CALCULATE([])": "empty CALCULATE filter",
 }
-
 
 def lint_dax(expression: str) -> list[str]:
     """Return lint findings for a single DAX expression."""
@@ -22,8 +23,7 @@ def lint_dax(expression: str) -> list[str]:
         findings.append("IFERROR hides real errors; handle specific cases")
     return findings
 
-
-def lint_model(model: dict) -> dict:
+def lint_model(model: Model) -> dict[str, list[str]]:
     """Lint every measure in the model, grouped by measure name."""
     from .metadata import list_measures
     out: dict[str, list[str]] = {}

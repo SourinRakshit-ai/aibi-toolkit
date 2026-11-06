@@ -1,6 +1,9 @@
 """Command-line interface for aibi-toolkit."""
 
+from __future__ import annotations
+
 import argparse
+from typing import Any
 
 COMMANDS = (
     ("summary", "Print model summary counts"),
@@ -19,7 +22,7 @@ COMMANDS = (
 WRITE_TARGETS = ("export", "report")
 
 
-def main(argv=None):
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="aibi", description=__doc__)
     parser.add_argument("--version", action="version", version=f"aibi-toolkit {__import__('aibi_toolkit').__version__}")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -40,7 +43,7 @@ def main(argv=None):
     return _dispatch(args)
 
 
-def _dispatch(args) -> int:
+def _dispatch(args: argparse.Namespace) -> int:
     from . import cli_internal
     json_flag = getattr(args, "json", False)
     if args.command == "summary":

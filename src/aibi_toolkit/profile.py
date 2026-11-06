@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+from typing import Any
+from .metadata import Model
+
+
 """Profile a model's expression complexity and weight."""
 
 EXPRESSION_WEIGHTS = {
@@ -21,7 +25,7 @@ def expression_weight(expression: str) -> int:
     return weight
 
 
-def profile_model(model: dict) -> dict:
+def profile_model(model: Model) -> dict[str, Any]:
     """Aggregate complexity stats across all measures."""
     from .metadata import list_measures
     measures = list_measures(model)
@@ -36,7 +40,7 @@ def profile_model(model: dict) -> dict:
     return {"count": len(weights), "max": weights[-1], "avg": avg, "heavy": heavy}
 
 
-def heavy_meaning_change(model: dict) -> dict:
+def heavy_meaning_change(model: Model) -> dict[str, Any]:
     """Profile with a stricter 'heavy' threshold for reports."""
     from .metadata import list_measures
     measures = list_measures(model)

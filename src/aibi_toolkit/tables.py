@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+from typing import Any
+
+
 """Plain-text table rendering for CLI output."""
 
 
-def markdown_table(rows: list[dict], columns: list[str] | None = None) -> str:
+def markdown_table(rows: list[dict[str, Any]], columns: list[str] | None = None) -> str:
     """Render rows as a GitHub-flavored markdown table."""
     if not rows:
         return ""
@@ -18,7 +21,7 @@ def markdown_table(rows: list[dict], columns: list[str] | None = None) -> str:
     return "\n".join([header, sep, *body])
 
 
-def align_column(rows: list[dict], column: str, right: bool = False) -> list[dict]:
+def align_column(rows: list[dict[str, Any]], column: str, right: bool = False) -> list[dict[str, Any]]:
     """Pad a column's values for aligned plain-text output."""
     width = max((len(str(r.get(column, ""))) for r in rows), default=0)
     return [
@@ -27,7 +30,7 @@ def align_column(rows: list[dict], column: str, right: bool = False) -> list[dic
     ]
 
 
-def plain_table(rows: list[dict], columns: list[str] | None = None) -> str:
+def plain_table(rows: list[dict[str, Any]], columns: list[str] | None = None) -> str:
     """Render rows as a bordered plain-text table for terminals."""
     if not rows:
         return ""

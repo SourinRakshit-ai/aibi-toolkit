@@ -1,24 +1,25 @@
-from __future__ import annotations
-
 """Per-project config for aibi-toolkit (TOML)."""
 
+from __future__ import annotations
+
+from typing import Any
 from pathlib import Path
 
 try:
     import tomllib
 except ModuleNotFoundError:  # Python 3.10: stdlib tomllib landed in 3.11
-    tomllib = None
+    tomllib = None  # type: ignore[assignment]
 
-DEFAULTS = {
+DEFAULTS: dict[str, str | int] = {
     "max_name_length": 64,
     "default_currency": "USD",
     "percent_decimals": 1,
 }
 
 
-def _parse_simple_toml(text: str) -> dict:
+def _parse_simple_toml(text: str) -> dict[str, Any]:
     """Minimal [section] key = value parser for when tomllib is unavailable."""
-    data: dict = {}
+    data: dict[str, dict[str, Any]] = {}
     section: str | None = None
     for raw in text.splitlines():
         line = raw.split("#", 1)[0].strip()
@@ -29,8 +30,9 @@ def _parse_simple_toml(text: str) -> dict:
             data.setdefault(section, {})
         elif "=" in line and section is not None:
             key, value = (part.strip() for part in line.split("=", 1))
+            parsed: Any
             if value.startswith(("'", '"')):
-                parsed: object = value[1:-1]
+                parsed = value[1:-1]
             elif value.lower() in ("true", "false"):
                 parsed = value.lower() == "true"
             else:
@@ -42,7 +44,7 @@ def _parse_simple_toml(text: str) -> dict:
     return data
 
 
-def load_config(path) -> dict:
+def load_config(path: str | Path) -> dict[str, str | int]:
     """Load aibi config from TOML, falling back to defaults."""
     p = Path(path)
     if not p.exists():
@@ -52,9 +54,9 @@ def load_config(path) -> dict:
     return {**DEFAULTS, **data.get("aibi", {})}
 
 
-def validate_config(cfg: dict) -> list[str]:
+def validate_config(cfg: dict[str, Any]) -> list[str]:
     """Return human-readable config errors (empty = valid)."""
-    errors = []
+    errors: list[str] = []
     if not isinstance(cfg.get("max_name_length"), int) or cfg["max_name_length"] < 1:
         errors.append("max_name_length must be a positive integer")
     if cfg.get("default_currency") not in ("USD", "EUR", "GBP", "INR"):
@@ -67,5 +69,5 @@ def validate_config(cfg: dict) -> list[str]:
 def default_config_toml() -> str:
     """Render a starter aibi.toml for users."""
     lines = ["[aibi]"]
-    lines += [f'{k} = {v!r}' for k, v in DEFAULTS.items()]
+    lines += [f"{k} = {v!r}" for k, v in DEFAULTS.items()]
     return "\n".join(lines) + "\n"

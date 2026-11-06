@@ -2,6 +2,9 @@ from __future__ import annotations
 
 """Format-string helpers for DAX measures."""
 
+from pathlib import Path
+from typing import Any
+
 CURRENCY_SYMBOLS = {"USD": "$", "EUR": "€", "GBP": "£", "INR": "₹"}
 
 
@@ -21,7 +24,7 @@ def thousands_format(decimals: int = 0) -> str:
     return f"#,0.{('0' * decimals) if decimals else ''}".rstrip(".")
 
 
-def detect_format(sample_value) -> str:
+def detect_format(sample_value: int | float | bool) -> str:
     """Guess a format string from a sample numeric value."""
     if isinstance(sample_value, bool):
         return "TRUE/FALSE"
@@ -42,11 +45,10 @@ def date_format(style: str = "short") -> str:
     return DATE_FORMATS[style]
 
 
-def format_report(model: dict, path) -> None:
+def format_report(model: dict[str, Any], path: str | Path) -> None:
     """Apply detected formats to every numeric measure and write a report."""
     import csv as _csv
-    from pathlib import Path as _Path
-    with _Path(path).open("w", newline="", encoding="utf-8") as f:
+    with Path(path).open("w", newline="", encoding="utf-8") as f:
         w = _csv.writer(f)
         w.writerow(["table", "name", "suggested_format"])
         for t in model.get("tables", []):
@@ -55,9 +57,9 @@ def format_report(model: dict, path) -> None:
                     w.writerow([t["name"], m["name"], "#,0.00"])
 
 
-def merge_formats(*maps: dict) -> dict:
+def merge_formats(*maps: dict[str, str]) -> dict[str, str]:
     """Merge format maps, later maps winning on conflicts."""
-    out: dict = {}
+    out: dict[str, str] = {}
     for m in maps:
         out.update(m)
     return out
@@ -112,7 +114,7 @@ def format_key_from_format(fmt: str) -> str:
 
 def validate_format(fmt: str) -> list[str]:
     """Check a custom format string for common mistakes."""
-    issues = []
+    issues: list[str] = []
     if fmt.count("{") != fmt.count("}"):
         issues.append("unbalanced braces")
     if "%" in fmt and "$" in fmt:

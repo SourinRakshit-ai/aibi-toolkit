@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+from .metadata import Model
+
 """Model hygiene audits for semantic models."""
 
 from .metadata import list_measures, model_summary
 
-
-def audit_measures(model: dict) -> dict:
+def audit_measures(model: Model) -> dict[str, list[str]]:
     """Run a measure hygiene audit and return findings by category."""
     measures = list_measures(model)
     findings: dict[str, list[str]] = {
@@ -24,8 +25,7 @@ def audit_measures(model: dict) -> dict:
             findings["long_names"].append(m["name"])
     return findings
 
-
-def audit_score(model: dict) -> int:
+def audit_score(model: Model) -> int:
     """Score 0-100 based on measure hygiene findings."""
     measures = list_measures(model)
     if not measures:
@@ -34,8 +34,7 @@ def audit_score(model: dict) -> int:
     problems = sum(len(v) for v in findings.values())
     return max(0, 100 - round(100 * problems / (2 * len(measures))))
 
-
-def audit_tables(model: dict) -> dict:
+def audit_tables(model: Model) -> dict[str, list[str]]:
     """Table-level findings: name issues and empty tables."""
     out: dict[str, list[str]] = {"empty": [], "bad_names": []}
     for t in model.get("tables", []):

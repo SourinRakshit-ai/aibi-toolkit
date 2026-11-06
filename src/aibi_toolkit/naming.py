@@ -28,7 +28,7 @@ ABBREVIATIONS = {
 }
 
 
-def expand_abbreviations(name: str, mapping: dict | None = None) -> str:
+def expand_abbreviations(name: str,  mapping: dict[str, str] | None = None) -> str:
     """Expand common BI abbreviations to their full words."""
     mapping = mapping or ABBREVIATIONS
     words = name.replace("_", " ").split()

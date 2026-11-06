@@ -1,13 +1,16 @@
+"""Generate a markdown audit report for a semantic model."""
+
 from __future__ import annotations
 
-"""Generate a markdown audit report for a semantic model."""
+from pathlib import Path
 
 from .audit import audit_measures, audit_tables, audit_score
 from .integrity import check_relationships, orphan_tables, check_cardinality
+from .metadata import Model
 from .tables import markdown_table
 
 
-def generate_report(model: dict, title: str = "Model Audit Report") -> str:
+def generate_report(model: Model, title: str = "Model Audit Report") -> str:
     """Build a full markdown report string."""
     sections = [f"# {title}", ""]
     sections += _overview(model)
@@ -17,7 +20,7 @@ def generate_report(model: dict, title: str = "Model Audit Report") -> str:
     return "\n".join(sections)
 
 
-def _overview(model: dict) -> list[str]:
+def _overview(model: Model) -> list[str]:
     from .metadata import model_summary
     s = model_summary(model)
     return [
@@ -32,18 +35,20 @@ def _overview(model: dict) -> list[str]:
     ]
 
 
-def _measure_findings(model: dict) -> list[str]:
+def _measure_findings(model: Model) -> list[str]:
     f = audit_measures(model)
-    rows = [{"category": k, "count": len(v), "examples": ", ".join(v[:3])} for k, v in f.items() if v]
+    rows: list[dict[str, object]] = [
+        {"category": k, "count": len(v), "examples": ", ".join(v[:3])} for k, v in f.items() if v
+    ]
     out = ["## Measure findings", ""]
-    out += (markdown_table(rows, columns=["category", "count", "examples"]).splitlines() if rows else ["No measure findings."])
+    out += markdown_table(rows, columns=["category", "count", "examples"]).splitlines() if rows else ["No measure findings."]
     return out + [""]
 
 
-def _table_findings(model: dict) -> list[str]:
+def _table_findings(model: Model) -> list[str]:
     f = audit_tables(model)
     orphans = orphan_tables(model)
-    out = ["## Table findings", ""]
+    out: list[str] = ["## Table findings", ""]
     if f["empty"]:
         out += [f"- Empty tables ({len(f['empty'])}): {', '.join(f['empty'][:5])}"]
     if f["bad_names"]:
@@ -55,16 +60,20 @@ def _table_findings(model: dict) -> list[str]:
     return out + [""]
 
 
-def _relationship_findings(model: dict) -> list[str]:
+def _relationship_findings(model: Model) -> list[str]:
     r = check_relationships(model)
     missing = check_cardinality(model)
-    out = ["## Relationship findings", "", f"- Inactive relationships: {len(r['inactive'])}",
-           f"- Bidirectional filters: {len(r['bidirectional'])}",
-           f"- Missing cardinality: {len(missing)}", ""]
+    out: list[str] = [
+        "## Relationship findings",
+        "",
+        f"- Inactive relationships: {len(r['inactive'])}",
+        f"- Bidirectional filters: {len(r['bidirectional'])}",
+        f"- Missing cardinality: {len(missing)}",
+        "",
+    ]
     return out
 
 
-def write_report(model: dict, path, title: str = "Model Audit Report") -> None:
+def write_report(model: Model, path: str | Path, title: str = "Model Audit Report") -> None:
     """Generate and write the report to a markdown file."""
-    from pathlib import Path
     Path(path).write_text(generate_report(model, title), encoding="utf-8")

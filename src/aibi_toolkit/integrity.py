@@ -1,11 +1,13 @@
-from __future__ import annotations
-
 """Model relationship integrity checks."""
 
+from __future__ import annotations
 
-def check_relationships(model: dict) -> dict:
+from .metadata import Model
+
+
+def check_relationships(model: Model) -> dict[str, list[str]]:
     """Find inactive and many-to-many unsafe relationships."""
-    out = {"inactive": [], "bidirectional": []}
+    out: dict[str, list[str]] = {"inactive": [], "bidirectional": []}
     for r in model.get("relationships", []):
         label = f"{r.get('fromTable')} -> {r.get('toTable')}"
         if not r.get("isActive", True):
@@ -15,7 +17,7 @@ def check_relationships(model: dict) -> dict:
     return out
 
 
-def check_cardinality(model: dict) -> list[str]:
+def check_cardinality(model: Model) -> list[str]:
     """Warn on relationships without declared cardinality."""
     return [
         f"{r.get('fromTable')} -> {r.get('toTable')}"
@@ -24,9 +26,9 @@ def check_cardinality(model: dict) -> list[str]:
     ]
 
 
-def orphan_tables(model: dict) -> list[str]:
+def orphan_tables(model: Model) -> list[str]:
     """Tables not connected to any relationship."""
-    rel_tables = set()
+    rel_tables: set[str] = set()
     for r in model.get("relationships", []):
         rel_tables.add(r.get("fromTable"))
         rel_tables.add(r.get("toTable"))
@@ -36,7 +38,7 @@ def orphan_tables(model: dict) -> list[str]:
     ]
 
 
-def role_playing_dimensions(model: dict) -> dict:
+def role_playing_dimensions(model: Model) -> dict[str, list[str]]:
     """Detect a date/lookup table joined multiple times."""
     counts: dict[str, list[str]] = {}
     for r in model.get("relationships", []):

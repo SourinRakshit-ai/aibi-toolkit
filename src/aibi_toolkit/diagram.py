@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+from .metadata import Model
+
 """Mermaid ER-diagram export of model relationships."""
 
-
-def mermaid_er(model: dict) -> str:
+def mermaid_er(model: Model) -> str:
     """Render relationships as a mermaid erDiagram block."""
     lines = ["erDiagram"]
     for r in model.get("relationships", []):
@@ -12,12 +13,10 @@ def mermaid_er(model: dict) -> str:
         lines.append(f"    {f} ||--o{{ {t} : has")
     return "\n".join(lines)
 
-
 def _safe(name: str) -> str:
     return name.replace(" ", "_") or "Unknown"
 
-
-def mermaid_tables(model: dict, limit: int = 20) -> str:
+def mermaid_tables(model: Model, limit: int = 20) -> str:
     """Render the first N tables as a mermaid graph for top-level shape."""
     lines = ["graph TD"]
     for i, t in enumerate(model.get("tables", [])[:limit]):
