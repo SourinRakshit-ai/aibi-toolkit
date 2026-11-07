@@ -1,0 +1,44 @@
+name: Bug report
+description: Report something that behaves unusually or crashes
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Paste the full command and the error output.
+      placeholder: |
+        aibi audit model.json
+        Traceback (most recent call last): ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: "`aibi synth repro.json` output plus the smallest edit that triggers it."
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: aibi-toolkit version
+      placeholder: "1.2.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - macOS
+        - Linux
+        - Windows
+    validations:
+      required: true
