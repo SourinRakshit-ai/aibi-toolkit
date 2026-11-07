@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.0 - 2026-11-07
+- Added: runnable `examples/` (audit, CSV round-trip, mermaid diagrams) —
+  each self-contained via generated sample models.
+- Added: `Makefile` (test/typecheck/lint/build/serve-docs) and
+  `[dev|docs]` extras for one-command contributor setup.
+- CI: Python 3.13 + macOS added to the test matrix; ruff adopted as the
+  style gate (line length 100) with a dedicated lint workflow job.
+- Docs: developer/community files (code of conduct, security policy,
+  issue + PR templates), badges, and index navigation refresh.
+- Fixed: ruff TRY004 — wrong-typed model dump now raises `TypeError`.
+
 ## 1.1.2 - 2026-11-06
 - Type-hardening: full `mypy --strict` compliance across all 19 modules
   (`Model = dict[str, Any]` alias, typed annotations, narrowed `load_model`),
