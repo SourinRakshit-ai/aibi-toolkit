@@ -1,4 +1,4 @@
-from aibi_toolkit.tables import markdown_table, align_column
+from aibi_toolkit.tables import align_column, markdown_table
 
 
 def test_markdown_table():

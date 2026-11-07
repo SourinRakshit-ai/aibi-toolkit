@@ -1,4 +1,4 @@
-from aibi_toolkit.measure import currency_format, percent_format, detect_format
+from aibi_toolkit.measure import currency_format, detect_format, percent_format
 
 
 def test_currency_usd():

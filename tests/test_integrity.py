@@ -1,4 +1,4 @@
-from aibi_toolkit.integrity import check_relationships, check_cardinality
+from aibi_toolkit.integrity import check_cardinality, check_relationships
 
 MODEL = {
     "relationships": [

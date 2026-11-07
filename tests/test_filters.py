@@ -1,4 +1,4 @@
-from aibi_toolkit.filters import build_topn_measure, build_isfiltered_check
+from aibi_toolkit.filters import build_isfiltered_check, build_topn_measure
 
 
 def test_topn():

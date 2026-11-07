@@ -1,4 +1,4 @@
-from aibi_toolkit.autofix import fix_measure_name, suggest_format, autofix_model
+from aibi_toolkit.autofix import autofix_model, fix_measure_name, suggest_format
 
 
 def test_fix_measure_name():

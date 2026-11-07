@@ -1,7 +1,6 @@
 """End-to-end tests driving the CLI parser and command dispatch."""
 
 import json
-from pathlib import Path
 
 import pytest
 
@@ -80,6 +79,7 @@ def test_profile_json_output(model_path, capsys):
 
 def test_version_flag(capsys):
     import pytest as _pytest
+
     from aibi_toolkit.cli import main as _main
     with _pytest.raises(SystemExit) as e:
         _main(["--version"])

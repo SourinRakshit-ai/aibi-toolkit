@@ -1,4 +1,4 @@
-from aibi_toolkit.dax import build_sum_measure, build_safe_ratio
+from aibi_toolkit.dax import build_safe_ratio, build_sum_measure
 
 
 def test_sum_measure():

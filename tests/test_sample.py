@@ -1,4 +1,4 @@
-from aibi_toolkit.sample import sample_model, sample_csv
+from aibi_toolkit.sample import sample_csv, sample_model
 
 
 def test_sample_model_deterministic():

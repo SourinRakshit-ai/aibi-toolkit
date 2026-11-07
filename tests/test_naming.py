@@ -1,4 +1,4 @@
-from aibi_toolkit.naming import to_snake_case, to_display_name
+from aibi_toolkit.naming import to_display_name, to_snake_case
 
 
 def test_snake_case():
