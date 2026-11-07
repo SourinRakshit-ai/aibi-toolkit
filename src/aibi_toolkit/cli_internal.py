@@ -3,8 +3,9 @@
 
 def cmd_audit(model_path: str, json_out: bool = False) -> int:
     import json
-    from aibi_toolkit.metadata import load_model
+
     from aibi_toolkit.audit import audit_measures, audit_score
+    from aibi_toolkit.metadata import load_model
     model = load_model(model_path)
     findings = audit_measures(model)
     if json_out:
@@ -19,8 +20,9 @@ def cmd_audit(model_path: str, json_out: bool = False) -> int:
 
 def cmd_lint(model_path: str, json_out: bool = False) -> int:
     import json
-    from aibi_toolkit.metadata import load_model
+
     from aibi_toolkit.lint import lint_model
+    from aibi_toolkit.metadata import load_model
     findings = lint_model(load_model(model_path))
     if json_out:
         print(json.dumps({"lint": findings}, indent=2))
@@ -32,24 +34,26 @@ def cmd_lint(model_path: str, json_out: bool = False) -> int:
 
 
 def cmd_export(model_path: str, out_path: str) -> int:
-    from aibi_toolkit.metadata import load_model, list_measures
     from aibi_toolkit.csvio import export_measures
+    from aibi_toolkit.metadata import list_measures, load_model
     n = export_measures(list_measures(load_model(model_path)), out_path)
     print(f"exported {n} measures to {out_path}")
     return 0
 
 
 def cmd_diagram(model_path: str) -> int:
-    from aibi_toolkit.metadata import load_model
     from aibi_toolkit.diagram import mermaid_er
+    from aibi_toolkit.metadata import load_model
     print(mermaid_er(load_model(model_path)))
     return 0
 
 
 def cmd_fix(model_path: str, dry_run: bool = False) -> int:
-    from aibi_toolkit.autofix import autofix_model
-    from .metadata import load_model
     import json
+
+    from aibi_toolkit.autofix import autofix_model
+
+    from .metadata import load_model
     model = load_model(model_path)
     result = autofix_model(model)
     for c in result["changes"]:
@@ -69,6 +73,7 @@ def cmd_report(model_path: str, out_path: str) -> int:
 
 def cmd_synth(out_path: str, tables: int = 3) -> int:
     import json
+
     from aibi_toolkit.sample import sample_model
     model = sample_model(tables=tables)
     from pathlib import Path
@@ -79,6 +84,7 @@ def cmd_synth(out_path: str, tables: int = 3) -> int:
 
 def cmd_profile(model_path: str, json_out: bool = False) -> int:
     import json
+
     from aibi_toolkit.metadata import load_model
     from aibi_toolkit.profile import profile_model
     p = profile_model(load_model(model_path))

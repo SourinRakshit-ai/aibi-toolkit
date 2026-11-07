@@ -24,7 +24,7 @@ def thousands_format(decimals: int = 0) -> str:
     return f"#,0.{('0' * decimals) if decimals else ''}".rstrip(".")
 
 
-def detect_format(sample_value: int | float | bool) -> str:
+def detect_format(sample_value: float | bool) -> str:
     """Guess a format string from a sample numeric value."""
     if isinstance(sample_value, bool):
         return "TRUE/FALSE"
@@ -96,7 +96,7 @@ SHORT_SCALE = [("", 1), ("K", 1_000), ("M", 1_000_000), ("B", 1_000_000_000)]
 def human_readable(value: float) -> str:
     """Render a number like 1.2M / 340K for CLI and docs output."""
     for suffix, scale in reversed(SHORT_SCALE):
-        if abs(value) >= scale and scale > 1:
+        if abs(value) >= scale > 1:
             return f"{value / scale:.1f}{suffix}"
         if scale == 1:
             return f"{value:,.0f}"

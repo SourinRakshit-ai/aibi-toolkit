@@ -4,7 +4,8 @@ from .metadata import Model
 
 """Model hygiene audits for semantic models."""
 
-from .metadata import list_measures, model_summary
+from .metadata import list_measures
+
 
 def audit_measures(model: Model) -> dict[str, list[str]]:
     """Run a measure hygiene audit and return findings by category."""

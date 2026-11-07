@@ -15,7 +15,7 @@ def load_model(path: str) -> Model:
     """Load a model JSON dump from disk."""
     data = json.loads(Path(path).read_text(encoding="utf-8"))
     if not isinstance(data, dict):
-        raise ValueError("model dump must be a JSON object")
+        raise TypeError("model dump must be a JSON object")
     return data
 
 

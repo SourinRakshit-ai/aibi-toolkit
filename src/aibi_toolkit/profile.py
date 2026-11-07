@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 from typing import Any
-from .metadata import Model
 
+from .metadata import Model
 
 """Profile a model's expression complexity and weight."""
 

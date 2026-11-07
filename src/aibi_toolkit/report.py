@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from .audit import audit_measures, audit_tables, audit_score
-from .integrity import check_relationships, orphan_tables, check_cardinality
+from .audit import audit_measures, audit_score, audit_tables
+from .integrity import check_cardinality, check_relationships, orphan_tables
 from .metadata import Model
 from .tables import markdown_table
 

@@ -1,15 +1,15 @@
 from __future__ import annotations
 
 from typing import Any
-from .metadata import Model
 
+from .metadata import Model
 
 """Automatic naming fixes for semantic-model dumps."""
 
 
 def fix_measure_name(name: str) -> str:
     """Turn a raw measure name into a display-safe one."""
-    from .naming import to_display_name, strip_numbers
+    from .naming import strip_numbers, to_display_name
     return truncate(to_display_name(strip_numbers(name)), 64)
 
 

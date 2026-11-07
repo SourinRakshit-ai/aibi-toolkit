@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-from typing import Any
 
 COMMANDS = (
     ("summary", "Print model summary counts"),
@@ -52,7 +51,7 @@ def _dispatch(args: argparse.Namespace) -> int:
         print(f"tables={s['tables']} measures={s['measures']} columns={s['columns']}")
         return 0
     if args.command == "tables":
-        from aibi_toolkit.metadata import load_model, list_tables
+        from aibi_toolkit.metadata import list_tables, load_model
         for t in list_tables(load_model(args.model)):
             print(t)
         return 0

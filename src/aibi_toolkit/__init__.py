@@ -4,15 +4,41 @@ API is stable as of 1.0 — new functionality lands after this point will
 be additive.
 """
 
-from . import (  # noqa: F401
-    naming, measure, dax, metadata, csvio,
-    filters, tables, audit, config, lint, integrity,
-    autofix, diagram, report, sample, profile,
+from . import (
+    audit,
+    autofix,
+    config,
+    csvio,
+    dax,
+    diagram,
+    filters,
+    integrity,
+    lint,
+    measure,
+    metadata,
+    naming,
+    profile,
+    report,
+    sample,
+    tables,
 )
 
 __version__ = "1.0.0"
 __all__ = [
-    "naming", "measure", "dax", "metadata", "csvio",
-    "filters", "tables", "audit", "config", "lint", "integrity",
-    "autofix", "diagram", "report", "sample", "profile",
+    "audit",
+    "autofix",
+    "config",
+    "csvio",
+    "dax",
+    "diagram",
+    "filters",
+    "integrity",
+    "lint",
+    "measure",
+    "metadata",
+    "naming",
+    "profile",
+    "report",
+    "sample",
+    "tables",
 ]
