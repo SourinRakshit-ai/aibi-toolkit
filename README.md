@@ -6,8 +6,13 @@ relationship integrity, mermaid diagrams, and markdown audit reports.
 
 [![CI](https://github.com/SourinRakshit-ai/aibi-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/SourinRakshit-ai/aibi-toolkit/actions/workflows/ci.yml)
 [![Lint](https://github.com/SourinRakshit-ai/aibi-toolkit/actions/workflows/lint.yml/badge.svg)](https://github.com/SourinRakshit-ai/aibi-toolkit/actions/workflows/lint.yml)
-![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+[![Python](https://img.shields.io/badge/python-3.10–3.13-blue)](pyproject.toml)
+[![Types](https://img.shields.io/badge/mypy-strict-blue)](pyproject.toml)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](.github/workflows/lint.yml)
+[![Docs](https://img.shields.io/badge/docs-live-informational)](https://sourinrakshit-ai.github.io/aibi-toolkit/)
 ![License](https://img.shields.io/badge/license-MIT-green)
+
+Runnable walkthroughs live in [`examples/`](examples/#readme).
 
 ## Install
 
