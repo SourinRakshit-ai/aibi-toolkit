@@ -1,10 +1,19 @@
-.PHONY: test lint clean
+.PHONY: install test typecheck lint build serve-docs
+
+install:
+	pip install -e ".[dev]"
 
 test:
 	pytest -q
 
-lint:
-	python -m compileall -q src tests
+typecheck:
+	mypy --strict src/aibi_toolkit/
 
-clean:
-	rm -rf dist .pytest_cache __pycache__
+lint:
+	ruff check src/ tests/
+
+build:
+	python -m build
+
+serve-docs:
+	mkdocs serve
