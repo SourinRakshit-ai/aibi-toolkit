@@ -79,6 +79,8 @@ Full module map:
   `definition/tables/*.tmdl`, relationships from `definition/relationships.tmdl`;
   every command works unchanged on either shape.
 
+Full details and layout diagram: [docs/input.md](docs/input.md).
+
 ## Install
 
 Install from PyPI and check the binary works:

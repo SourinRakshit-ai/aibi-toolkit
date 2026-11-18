@@ -3,6 +3,7 @@ theme:
   name: material
 nav:
   - Home: index.md
+  - Input formats: input.md
   - Naming: naming.md
   - Formats: format-strings.md
   - DAX snippets: dax.md
