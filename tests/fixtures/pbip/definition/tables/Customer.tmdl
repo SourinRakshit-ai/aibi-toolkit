@@ -1,0 +1,13 @@
+table Customer
+
+	measure '# Customers' = COUNTROWS(Customer)
+		formatString: #,##0
+
+	column CustomerId
+		dataType: int64
+		sourceColumn: CustomerId
+
+	column 'Customer Name'
+		dataType: string
+		sourceColumn: CustomerName
+

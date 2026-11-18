@@ -21,6 +21,7 @@ from . import (
     report,
     sample,
     tables,
+    tmdl,
 )
 
 __version__ = "1.2.1"
@@ -41,4 +42,5 @@ __all__ = [
     "report",
     "sample",
     "tables",
+    "tmdl",
 ]

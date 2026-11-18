@@ -1,0 +1,10 @@
+relationship 'Sales to Date'
+	fromColumn: Sales.OrderDate
+	toColumn: Date.Date
+
+/// Inactive — kept for time intelligence
+relationship 'Sales to Customer'
+	isActive: false
+	fromColumn: Sales.CustomerId
+	toColumn: Customer.CustomerId
+

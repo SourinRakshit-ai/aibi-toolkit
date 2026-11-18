@@ -53,6 +53,7 @@ Full module map:
 
 | Area               | Module          |
 | ------------------ | --------------- |
+| TMDL/PBIP loading  | `tmdl`          |
 | Naming             | `naming`        |
 | Format strings     | `measure`       |
 | DAX snippets       | `dax`, `filters`|
@@ -67,6 +68,16 @@ Full module map:
 | Configuration      | `config`        |
 | Profiling          | `profile`       |
 | CSV round-trip     | `csvio`         |
+
+## Input formats
+
+`aibi summary path` — `path` may be either:
+
+- a shared-schema JSON dump (`model.json` from your model tool), or
+- a TMDL folder (a `.pbip` project root, a `*.Dataset` folder, or the
+  `definition/` directory itself). Tables are read from
+  `definition/tables/*.tmdl`, relationships from `definition/relationships.tmdl`;
+  every command works unchanged on either shape.
 
 ## Install
 
@@ -120,9 +131,9 @@ that already has `set -e` fails immediately. Pass `--json` to `audit`,
   hiding). For deep complexity scoring and anti-pattern detection,
   that is what [aibi-dax](https://github.com/SourinRakshit-ai/aibi-dax)
   is for.
-- **Not a full TMDL/PBIP authoring tool.** It reads shared-schema
-  model dumps; it does not write them back to disk yet
-  (tracked in [#6](https://github.com/SourinRakshit-ai/aibi-toolkit/issues/6)).
+- **Not a TMDL/PBIP authoring tool.** It reads TMDL folders and
+  JSON dumps, but does not write TMDL back to disk; editing stays in
+  your model tool.
 - **Not a bug finder for DAX logic.** It checks static patterns; it
   cannot tell you your total is wrong. That still needs `EVALUATE`
   checks and your eyes.

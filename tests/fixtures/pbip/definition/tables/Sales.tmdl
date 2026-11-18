@@ -1,0 +1,35 @@
+table Sales
+
+	/// Revenue from all transactions
+	measure 'Total Sales' = ```
+			SUMX(
+				Sales,
+				Sales[Quantity]
+			)
+			```
+		formatString: $ #,##0.00
+
+	measure 'Sales Count' = COUNTROWS(Sales)
+		formatString: #,##0
+
+	measure 'No Format Measure' = SUM(Sales[Quantity])
+
+	column SalesKey
+		dataType: int64
+		isHidden
+		sourceColumn: SalesKey
+
+	column Quantity
+		dataType: decimal
+		sourceColumn: Quantity
+
+	column OrderDate
+		dataType: dateTime
+		sortByColumn: OrderDate
+		sourceColumn: OrderDate
+
+	column CustomerId
+		dataType: int64
+		isHidden
+		sourceColumn: CustomerId
+

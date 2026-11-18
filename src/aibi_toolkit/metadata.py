@@ -1,4 +1,4 @@
-"""Load and inspect semantic-model metadata dumps (TMDL-exported JSON)."""
+"""Load and inspect semantic-model metadata dumps (TMDL-exported JSON or TMDL folders)."""
 
 from __future__ import annotations
 
@@ -12,8 +12,17 @@ Table = dict[str, Any]
 
 
 def load_model(path: str) -> Model:
-    """Load a model JSON dump from disk."""
-    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    """Load a model from disk.
+
+    Accepts either a `Model` JSON dump or a `.pbip`-style TMDL directory
+    (root, `*.Dataset`, or the `definition/` folder). Both produce the same
+    shared dict, so every command works on either.
+    """
+    p = Path(path)
+    if p.is_dir():
+        from .tmdl import load_pbip
+        return load_pbip(p)
+    data = json.loads(p.read_text(encoding="utf-8"))
     if not isinstance(data, dict):
         raise TypeError("model dump must be a JSON object")
     return data
