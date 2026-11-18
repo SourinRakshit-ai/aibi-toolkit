@@ -16,6 +16,9 @@ generates a sample model instead of reading one.
 ```bash
 $ aibi summary model.json
 tables=4 measures=8 columns=4
+
+$ aibi summary model.json --json
+{"tables": 4, "measures": 8, "columns": 4}
 ```
 
 Prints one line: `tables=N measures=N columns=N`. `tables` counts table
@@ -36,6 +39,9 @@ Sales
 Customer
 Product
 Date
+
+$ aibi tables model.json --json
+["Sales", "Customer", "Product", "Date"]
 ```
 
 One table name per line, in persisted order. `--json` prints
