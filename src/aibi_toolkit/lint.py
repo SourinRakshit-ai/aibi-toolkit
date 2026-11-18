@@ -21,6 +21,8 @@ def lint_dax(expression: str) -> list[str]:
             findings.append(reason)
     if re.search(r"(?i)\bIFERROR\b", expression):
         findings.append("IFERROR hides real errors; handle specific cases")
+    if re.search(r"(?i)\bCOUNTROWS\s*\(\s*VALUES\s*\(", expression):
+        findings.append("COUNTROWS(VALUES(x)) is DISTINCTCOUNT(x) — shorter and faster")
     return findings
 
 def lint_model(model: Model) -> dict[str, list[str]]:

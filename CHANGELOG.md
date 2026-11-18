@@ -16,6 +16,7 @@
   one-line stderr message (`aibi: cannot write ...`).
 - Added: CLI reference covers all ten commands with real output and
   exit codes (`docs/CLI.md`).
+- `lint_dax` now flags `COUNTROWS(VALUES(x))` as `DISTINCTCOUNT(x)`.
 
 - Added: TMDL folder loader (`aibi_toolkit.tmdl.load_pbip` /
   `metadata.load_model`) — walks a `.pbip`-style folder, reads

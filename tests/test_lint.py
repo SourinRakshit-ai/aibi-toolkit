@@ -11,3 +11,11 @@ def test_iferror():
 
 def test_clean():
     assert lint_dax("ASP = DIVIDE([Sales], [Units], 0)") == []
+
+
+def test_countrows_values_lint():
+    flag = lint_dax
+    assert any("DISTINCTCOUNT" in f for f in flag("COUNTROWS(VALUES('Sales'[Region])) + 1"))
+    assert any("DISTINCTCOUNT" in f for f in flag("COUNTROWS( VALUES([Region]) )"))
+    assert flag("COUNTROWS(Sales)") == []
+    assert flag("RANGE(VALUES([Region]))") == []
