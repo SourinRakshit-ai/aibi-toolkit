@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.1 - 2026-11-18
+
+- Published to PyPI via trusted publishing (OIDC) — `pip install
+  aibi-toolkit`. Tag `v1.2.0` shipped the 1.2.x release with the same
+  workflow configuration; `v1.2.1` refreshes the PyPI README to the
+  current install instructions.
+
 ## 1.2.0 - 2026-11-07
 - Added: runnable `examples/` (audit, CSV round-trip, mermaid diagrams) —
   each self-contained via generated sample models.

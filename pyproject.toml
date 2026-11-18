@@ -1,6 +1,6 @@
 [project]
 name = "aibi-toolkit"
-version = "1.2.0"
+version = "1.2.1"
 description = "Clean up Power BI / Tableau semantic-model metadata: naming, format strings, DAX snippets, hygiene auditing, linting, diagrams and reports"
 readme = "README.md"
 requires-python = ">=3.10"

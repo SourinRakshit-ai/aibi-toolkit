@@ -70,14 +70,14 @@ Full module map:
 
 ## Install
 
-Not on PyPI yet; install from the repository. Issue [#5](https://github.com/SourinRakshit-ai/aibi-toolkit/issues/5) tracks the trusted-publishing release:
+Install from PyPI and check the binary works:
 
 ```bash
-git clone https://github.com/SourinRakshit-ai/aibi-toolkit.git
-cd aibi-toolkit
-pip install .
+pip install aibi-toolkit
 aibi --help
 ```
+
+Or install from the source tree: `git clone https://github.com/SourinRakshit-ai/aibi-toolkit.git && cd aibi-toolkit && pip install .`.
 
 ## Quick start
 
@@ -148,11 +148,11 @@ that already has `set -e` fails immediately. Pass `--json` to `audit`,
 
 - **Docs site:** [sourinrakshit-ai.github.io/aibi-toolkit](https://sourinrakshit-ai.github.io/aibi-toolkit/) (`mkdocs gh-deploy`)
 - **Issues:** [https://github.com/SourinRakshit-ai/aibi-toolkit/issues](https://github.com/SourinRakshit-ai/aibi-toolkit/issues)
-- **Status:** `v1.2.0` on main. Not yet published to PyPI; trusted publishing
-  for the repo is tracked in [#5](https://github.com/SourinRakshit-ai/aibi-toolkit/issues/5),
-  with the pattern now proven by [aibi-dax](https://github.com/SourinRakshit-ai/aibi-dax).
-- **Releases:** tagged `v*` triggers the `publish.yml` workflow once
-  trusted publishing is configured.
+- **Status:** [`aibi-toolkit`](https://pypi.org/project/aibi-toolkit/) is on
+  PyPI, installed via `pip install aibi-toolkit`. Trusted publishing was
+  registered with the same pattern as [aibi-dax](https://github.com/SourinRakshit-ai/aibi-dax).
+- **Releases:** pushing a `v*` tag triggers `.github/workflows/publish.yml`,
+  which publishes to PyPI via OIDC and generates digital attestations.
 
 ## Development
 

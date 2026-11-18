@@ -3,7 +3,7 @@
 CLI + library for cleaning up Power BI / Tableau semantic-model metadata.
 
 ```bash
-pip install .
+pip install aibi-toolkit
 aibi --help
 ```
 
