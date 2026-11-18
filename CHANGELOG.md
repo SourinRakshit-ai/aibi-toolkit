@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.3.0 - unreleased
+## 1.3.0 - 2026-11-18
 
 - Added: TMDL folder loader (`aibi_toolkit.tmdl.load_pbip` /
   `metadata.load_model`) — walks a `.pbip`-style folder, reads
@@ -11,21 +11,21 @@
   folder all work.
 - Added: `--json` on `summary` and `tables` — every command that already
   emits `--json` is now machine-readable end to end.
-- Added: `cli_internal` out-of-band write errors — `export` and `report`
-  no longer tracebacks on unwritable destinations; both exit `2` with a
-  one-line stderr message (`aibi: cannot write ...`).
+- Added: `cli_internal` write-failure hardening — `export`, `report` and
+  `synth` no longer tracebacks on unwritable destinations; all three exit `2`
+  with a one-line stderr message (`aibi: cannot write ...`).
 - Added: CLI reference covers all ten commands with real output and
   exit codes (`docs/CLI.md`).
 - `lint_dax` now flags `COUNTROWS(VALUES(x))` as `DISTINCTCOUNT(x)`.
 - `lint_dax` now flags `IF(TRUE(), x, y)` (always x) and `IF(FALSE(), x, y)` (always y).
-
-- Added: TMDL folder loader (`aibi_toolkit.tmdl.load_pbip` /
-  `metadata.load_model`) — walks a `.pbip`-style folder, reads
-  `definition/tables/*.tmdl` (table definitions, measures with
-  multi-line DAX, columns, `formatString`) and `definition/relationships.tmdl`,
-  and produces the same model dict every command already uses. A
-  `.pbip` project root, `*.Dataset` folder or a bare `definition/`
-  folder all work.
+- Docs: new `docs/input.md` page covering JSON dumps vs TMDL folders,
+  linked from `docs/index.md`, README and the mkdocs nav.
+- Docs: `docs/tables.md` — new command page for the `tables` subcommand,
+  fixing the mkdocs strict-build dangling reference.
+- Fixed: `python -m aibi_toolkit` previously silently did nothing; a
+  `__main__.py` now runs the CLI.
+- Fixed: `aibi --version` was still reporting `1.0.0` while pyproject said
+  `1.2.0`; now always reports the installed distribution version.
 
 ## 1.2.1 - 2026-11-18
 

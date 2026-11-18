@@ -31,5 +31,6 @@ in the repo, or dive into the pages below for each command family:
 - [Autofixes](autofix.md) and [profiling](profiling.md)
 - [Diagrams](diagram.md) and the [CLI reference](CLI.md)
 
-New in v0.8: `aibi profile` for expression complexity, role-playing
-dimension detection, and word/naming utilities.
+Current status: `v1.3.0` (2026-11-18) — TMDL/PBIP folder input, every
+command exposed via `--json`, refreshed CLI reference, TMDL page, and the
+write-failure hardening passed for `docs/`.

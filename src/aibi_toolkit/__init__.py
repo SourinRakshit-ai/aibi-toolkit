@@ -24,7 +24,7 @@ from . import (
     tmdl,
 )
 
-__version__ = "1.2.1"
+__version__ = "1.3.0"
 __all__ = [
     "audit",
     "autofix",
