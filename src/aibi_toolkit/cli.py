@@ -72,3 +72,8 @@ def _dispatch(args: argparse.Namespace) -> int:
     if args.command == "profile":
         return cli_internal.cmd_profile(args.model, json_out=json_flag)
     return 0
+
+if __name__ == "__main__":
+    import sys
+
+    sys.exit(main())

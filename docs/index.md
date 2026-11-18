@@ -10,6 +10,7 @@ aibi --help
 | Command  | Purpose                          |
 | -------- | -------------------------------- |
 | summary  | object counts                    |
+| tables   | list table names                 |
 | audit    | hygiene findings + score         |
 | lint     | DAX rule findings                |
 | export   | measures to CSV                  |
@@ -25,6 +26,7 @@ in the repo, or dive into the pages below for each command family:
 
 - [Naming](naming.md) and [format strings](format-strings.md)
 - [Auditing](audit.md) and [linting](lint.md)
+- [Tables](tables.md) for the table listing and follow-ups
 - [Autofixes](autofix.md) and [profiling](profiling.md)
 - [Diagrams](diagram.md) and the [CLI reference](CLI.md)
 
