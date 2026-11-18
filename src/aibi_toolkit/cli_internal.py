@@ -57,7 +57,11 @@ def cmd_lint(model_path: str, json_out: bool = False) -> int:
 def cmd_export(model_path: str, out_path: str) -> int:
     from aibi_toolkit.csvio import export_measures
     from aibi_toolkit.metadata import list_measures
-    n = export_measures(list_measures(_model(model_path)), out_path)
+    try:
+        n = export_measures(list_measures(_model(model_path)), out_path)
+    except OSError as exc:
+        print(f"aibi: cannot write {out_path}: {exc.strerror or exc}", file=sys.stderr)
+        return 2
     print(f"exported {n} measures to {out_path}")
     return 0
 
@@ -84,7 +88,11 @@ def cmd_fix(model_path: str, dry_run: bool = False) -> int:
 
 def cmd_report(model_path: str, out_path: str) -> int:
     from aibi_toolkit.report import write_report
-    write_report(_model(model_path), out_path)
+    try:
+        write_report(_model(model_path), out_path)
+    except OSError as exc:
+        print(f"aibi: cannot write {out_path}: {exc.strerror or exc}", file=sys.stderr)
+        return 2
     print(f"report written to {out_path}")
     return 0
 
@@ -95,7 +103,11 @@ def cmd_synth(out_path: str, tables: int = 3) -> int:
     from aibi_toolkit.sample import sample_model
     model = sample_model(tables=tables)
     from pathlib import Path
-    Path(out_path).write_text(json.dumps(model, indent=2), encoding="utf-8")
+    try:
+        Path(out_path).write_text(json.dumps(model, indent=2), encoding="utf-8")
+    except OSError as exc:
+        print(f"aibi: cannot write {out_path}: {exc.strerror or exc}", file=sys.stderr)
+        return 2
     print(f"sample model written to {out_path}")
     return 0
 

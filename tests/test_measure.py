@@ -46,6 +46,18 @@ def test_validate_format():
     assert validate_format("#,0") == []
 
 
+def test_validate_format_percent_formats_pass():
+    from aibi_toolkit.measure import validate_format
+    assert validate_format("0.00%") == []
+    assert validate_format("0.0%") == []
+
+
+def test_validate_format_unbalanced_braces():
+    from aibi_toolkit.measure import validate_format
+    assert validate_format("{") == ["unbalanced braces"]
+    assert validate_format("a}b") == ["unbalanced braces"]
+
+
 def test_scale():
     from aibi_toolkit.measure import scale_number
     assert scale_number(1.005) == 1.0

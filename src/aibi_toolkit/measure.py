@@ -119,8 +119,6 @@ def validate_format(fmt: str) -> list[str]:
         issues.append("unbalanced braces")
     if "%" in fmt and "$" in fmt:
         issues.append("mixes percent and currency tokens")
-    if fmt and fmt[0].isdigit():
-        issues.append("should not start with a digit")
     return issues
 
 
