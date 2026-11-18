@@ -94,3 +94,25 @@ def test_cli_audit_subcommand_on_tmdl_fixture():
 
     rc = main(["audit", str(FIXTURE)])
     assert rc in (0, 1)
+
+
+def test_summary_and_tables_json_output(capsys, tmp_path):
+    """`--json` on summary/tables emits stable machine-readable payloads."""
+    from aibi_toolkit.cli import main
+
+    model = tmp_path / "model.json"
+    model.write_text(
+        '{"tables": ['
+        '{"name": "Customer", "columns": [{"name": "id"}], "measures": []},'
+        '{"name": "Sales", "columns": [{"name": "id"}, {"name": "qty"}], "measures": [{"name": "m1"}]}'
+        ']}',
+        encoding="utf-8",
+    )
+    assert main(["summary", str(model), "--json"]) == 0
+    import json as _json
+
+    out = _json.loads(capsys.readouterr().out.strip())
+    assert out == {"tables": 2, "measures": 1, "columns": 3}
+
+    assert main(["tables", str(model), "--json"]) == 0
+    assert _json.loads(capsys.readouterr().out.strip()) == ["Customer", "Sales"]

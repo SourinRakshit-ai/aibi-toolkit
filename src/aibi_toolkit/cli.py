@@ -36,7 +36,7 @@ def main(argv: list[str] | None = None) -> int:
             s.add_argument("out")
         if cmd == "fix":
             s.add_argument("--dry-run", action="store_true", help="print findings without applying")
-        if cmd in ("audit", "lint", "profile"):
+        if cmd in ("audit", "lint", "profile", "summary", "tables"):
             s.add_argument("--json", action="store_true", help="emit machine-readable JSON instead of text")
     args = parser.parse_args(argv)
     return _dispatch(args)
@@ -50,14 +50,23 @@ def _dispatch(args: argparse.Namespace) -> int:
 
         from . import cli_internal
         s = model_summary(cli_internal._model(args.model))
-        print(f"tables={s['tables']} measures={s['measures']} columns={s['columns']}")
+        if json_flag:
+            import json
+            print(json.dumps(s))
+        else:
+            print(f"tables={s['tables']} measures={s['measures']} columns={s['columns']}")
         return 0
     if args.command == "tables":
         from aibi_toolkit.metadata import list_tables
 
         from . import cli_internal
-        for t in list_tables(cli_internal._model(args.model)):
-            print(t)
+        tables = list_tables(cli_internal._model(args.model))
+        if json_flag:
+            import json
+            print(json.dumps(tables))
+        else:
+            for t in tables:
+                print(t)
         return 0
     if args.command == "audit":
         return cli_internal.cmd_audit(args.model, json_out=json_flag)

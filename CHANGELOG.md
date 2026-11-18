@@ -9,6 +9,21 @@
   and produces the same model dict every command already uses. A
   `.pbip` project root, `*.Dataset` folder or a bare `definition/`
   folder all work.
+- Added: `--json` on `summary` and `tables` — every command that already
+  emits `--json` is now machine-readable end to end.
+- Added: `cli_internal` out-of-band write errors — `export` and `report`
+  no longer tracebacks on unwritable destinations; both exit `2` with a
+  one-line stderr message (`aibi: cannot write ...`).
+- Added: CLI reference covers all ten commands with real output and
+  exit codes (`docs/CLI.md`).
+
+- Added: TMDL folder loader (`aibi_toolkit.tmdl.load_pbip` /
+  `metadata.load_model`) — walks a `.pbip`-style folder, reads
+  `definition/tables/*.tmdl` (table definitions, measures with
+  multi-line DAX, columns, `formatString`) and `definition/relationships.tmdl`,
+  and produces the same model dict every command already uses. A
+  `.pbip` project root, `*.Dataset` folder or a bare `definition/`
+  folder all work.
 
 ## 1.2.1 - 2026-11-18
 

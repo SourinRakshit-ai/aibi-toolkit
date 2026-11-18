@@ -20,7 +20,8 @@ tables=4 measures=8 columns=4
 
 Prints one line: `tables=N measures=N columns=N`. `tables` counts table
 objects; `measures` counts measure objects; `columns` counts columns in
-table objects.
+table objects. `--json` prints the same data as
+`{"tables": 4, "measures": 8, "columns": 4}`.
 
 ### Exit codes
 
@@ -37,7 +38,8 @@ Product
 Date
 ```
 
-One table name per line, in persisted order.
+One table name per line, in persisted order. `--json` prints
+`["Sales", "Customer", "Product", "Date"]` (a JSON array, in the same order).
 
 ### Exit codes
 
