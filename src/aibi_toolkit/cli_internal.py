@@ -1,12 +1,34 @@
 """Internal CLI command implementations, split out for readability."""
 
 
+import sys
+
+from aibi_toolkit.metadata import Model
+
+
+def _model(path: str) -> Model:
+    """Load a model from disk or exit 2 with a one-line reason."""
+    import json
+
+    from .metadata import load_model
+    try:
+        return load_model(path)
+    except FileNotFoundError:
+        print(f"aibi: cannot read {path}: no such file or directory", file=sys.stderr)
+        raise SystemExit(2)
+    except json.JSONDecodeError as exc:
+        print(f"aibi: {path}: not valid JSON ({exc})", file=sys.stderr)
+        raise SystemExit(2)
+    except (ValueError, TypeError) as exc:
+        print(f"aibi: {path}: {exc}", file=sys.stderr)
+        raise SystemExit(2)
+
+
 def cmd_audit(model_path: str, json_out: bool = False) -> int:
     import json
 
     from aibi_toolkit.audit import audit_measures, audit_score
-    from aibi_toolkit.metadata import load_model
-    model = load_model(model_path)
+    model = _model(model_path)
     findings = audit_measures(model)
     if json_out:
         print(json.dumps({"score": audit_score(model), "findings": findings}, indent=2))
@@ -22,8 +44,7 @@ def cmd_lint(model_path: str, json_out: bool = False) -> int:
     import json
 
     from aibi_toolkit.lint import lint_model
-    from aibi_toolkit.metadata import load_model
-    findings = lint_model(load_model(model_path))
+    findings = lint_model(_model(model_path))
     if json_out:
         print(json.dumps({"lint": findings}, indent=2))
         return 1 if findings else 0
@@ -35,16 +56,15 @@ def cmd_lint(model_path: str, json_out: bool = False) -> int:
 
 def cmd_export(model_path: str, out_path: str) -> int:
     from aibi_toolkit.csvio import export_measures
-    from aibi_toolkit.metadata import list_measures, load_model
-    n = export_measures(list_measures(load_model(model_path)), out_path)
+    from aibi_toolkit.metadata import list_measures
+    n = export_measures(list_measures(_model(model_path)), out_path)
     print(f"exported {n} measures to {out_path}")
     return 0
 
 
 def cmd_diagram(model_path: str) -> int:
     from aibi_toolkit.diagram import mermaid_er
-    from aibi_toolkit.metadata import load_model
-    print(mermaid_er(load_model(model_path)))
+    print(mermaid_er(_model(model_path)))
     return 0
 
 
@@ -53,8 +73,7 @@ def cmd_fix(model_path: str, dry_run: bool = False) -> int:
 
     from aibi_toolkit.autofix import autofix_model
 
-    from .metadata import load_model
-    model = load_model(model_path)
+    model = _model(model_path)
     result = autofix_model(model)
     for c in result["changes"]:
         print(f"fixed: {c}")
@@ -64,9 +83,8 @@ def cmd_fix(model_path: str, dry_run: bool = False) -> int:
 
 
 def cmd_report(model_path: str, out_path: str) -> int:
-    from aibi_toolkit.metadata import load_model
     from aibi_toolkit.report import write_report
-    write_report(load_model(model_path), out_path)
+    write_report(_model(model_path), out_path)
     print(f"report written to {out_path}")
     return 0
 
@@ -85,9 +103,8 @@ def cmd_synth(out_path: str, tables: int = 3) -> int:
 def cmd_profile(model_path: str, json_out: bool = False) -> int:
     import json
 
-    from aibi_toolkit.metadata import load_model
     from aibi_toolkit.profile import profile_model
-    p = profile_model(load_model(model_path))
+    p = profile_model(_model(model_path))
     if json_out:
         print(json.dumps(p, indent=2))
         return 0

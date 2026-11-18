@@ -106,7 +106,9 @@ aibi fix --dry-run model.json  # preview fixes before writing anything
 
 Audit returns exit `1` when findings exist, `0` when clean, so a pipeline
 that already has `set -e` fails immediately. Pass `--json` to `audit`,
-`lint` or `profile` when you want a machine-readable result.
+`lint` or `profile` when you want a machine-readable result. Any loader
+failure (missing path, not valid JSON, wrong top-level shape) exits `2`
+with a one-line reason on stderr — never a traceback.
 
 ## How it helps
 

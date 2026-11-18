@@ -46,13 +46,17 @@ def _dispatch(args: argparse.Namespace) -> int:
     from . import cli_internal
     json_flag = getattr(args, "json", False)
     if args.command == "summary":
-        from aibi_toolkit.metadata import load_model, model_summary
-        s = model_summary(load_model(args.model))
+        from aibi_toolkit.metadata import model_summary
+
+        from . import cli_internal
+        s = model_summary(cli_internal._model(args.model))
         print(f"tables={s['tables']} measures={s['measures']} columns={s['columns']}")
         return 0
     if args.command == "tables":
-        from aibi_toolkit.metadata import list_tables, load_model
-        for t in list_tables(load_model(args.model)):
+        from aibi_toolkit.metadata import list_tables
+
+        from . import cli_internal
+        for t in list_tables(cli_internal._model(args.model)):
             print(t)
         return 0
     if args.command == "audit":
