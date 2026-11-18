@@ -17,6 +17,7 @@
 - Added: CLI reference covers all ten commands with real output and
   exit codes (`docs/CLI.md`).
 - `lint_dax` now flags `COUNTROWS(VALUES(x))` as `DISTINCTCOUNT(x)`.
+- `lint_dax` now flags `IF(TRUE(), x, y)` (always x) and `IF(FALSE(), x, y)` (always y).
 
 - Added: TMDL folder loader (`aibi_toolkit.tmdl.load_pbip` /
   `metadata.load_model`) — walks a `.pbip`-style folder, reads
