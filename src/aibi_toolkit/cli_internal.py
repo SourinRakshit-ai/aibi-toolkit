@@ -40,11 +40,19 @@ def cmd_audit(model_path: str, json_out: bool = False) -> int:
     return 1 if any(findings.values()) else 0
 
 
-def cmd_lint(model_path: str, json_out: bool = False) -> int:
+def cmd_lint(model_path: str, json_out: bool = False, sarif: bool = False) -> int:
     import json
 
-    from aibi_toolkit.lint import lint_model
-    findings = lint_model(_model(model_path))
+    from aibi_toolkit.lint import lint_model, lint_model_findings
+    from aibi_toolkit.sarif import build_sarif
+    model = _model(model_path)
+    if sarif:
+        if json_out:
+            print("aibi: --sarif and --json are mutually exclusive — pick one format", file=sys.stderr)
+            return 2
+        print(json.dumps(build_sarif(lint_model_findings(model), model_path)))
+        return 0
+    findings = lint_model(model)
     if json_out:
         print(json.dumps({"lint": findings}, indent=2))
         return 1 if findings else 0

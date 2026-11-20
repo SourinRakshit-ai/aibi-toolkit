@@ -140,12 +140,19 @@ def lint_dax(expression: str) -> list[str]:
     return [message for _, message in lint_findings(expression)]
 
 
+def lint_model_findings(model: Model) -> list[tuple[str, str, str]]:
+    """Per-measure findings as (measure name, rule, message) triples."""
+    from .metadata import list_measures
+    out: list[tuple[str, str, str]] = []
+    for m in list_measures(model):
+        for rule, message in lint_findings(m.get("expression", "")):
+            out.append((m["name"], rule, message))
+    return out
+
+
 def lint_model(model: Model) -> dict[str, list[str]]:
     """Lint every measure in the model, grouped by measure name."""
-    from .metadata import list_measures
     out: dict[str, list[str]] = {}
-    for m in list_measures(model):
-        findings = lint_dax(m.get("expression", ""))
-        if findings:
-            out[m["name"]] = findings
+    for name, _, message in lint_model_findings(model):
+        out.setdefault(name, []).append(message)
     return out
