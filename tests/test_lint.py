@@ -33,3 +33,10 @@ def test_if_true_case_insensitive():
     flag = lint_dax
     assert any("always x" in f for f in flag("IF(true(), 1, 2)"))
     assert any("always y" in f for f in flag("IF(FALSE(), 1, 2)"))
+
+
+def test_not_not_rule():
+    flag = lint_dax
+    assert any("double wrapper" in f for f in flag("NOT(NOT([Active]))"))
+    assert flag("NOT([Active])") == []
+    assert flag("[x] != [y]") == []
