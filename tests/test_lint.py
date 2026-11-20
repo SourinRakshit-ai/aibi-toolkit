@@ -40,3 +40,10 @@ def test_not_not_rule():
     assert any("double wrapper" in f for f in flag("NOT(NOT([Active]))"))
     assert flag("NOT([Active])") == []
     assert flag("[x] != [y]") == []
+
+
+def test_nested_trim_rule():
+    flag = lint_dax
+    assert any("TRIM(TRIM(x))" in f for f in flag("TRIM(TRIM([Name]))"))
+    assert flag("TRIM([Name])") == []
+    assert flag("TRIM(LOWER(TRIM([Name])))") == []

@@ -29,6 +29,8 @@ def lint_dax(expression: str) -> list[str]:
         findings.append("IF(FALSE(), x, y) is always y — the condition never branches")
     if re.search(r"(?:\bNOT\s*\(|!)\s*(?:\bNOT\s*\(|!)", expression, re.IGNORECASE):
         findings.append("NOT(NOT(x)) is just x — drop the double wrapper")
+    if re.search(r"\bTRIM\s*\(\s*TRIM\s*\(", expression, re.IGNORECASE):
+        findings.append("TRIM(TRIM(x)) is just TRIM(x) — one call trims everything the pair can")
     return findings
 
 def lint_model(model: Model) -> dict[str, list[str]]:
