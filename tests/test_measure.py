@@ -76,3 +76,13 @@ def test_detect_format_percent_threshold():
     assert detect_format(0.5) == "0.0%"
     assert detect_format(5.2) == "#,0.00"
     assert detect_format(12.5) == "#,0.00"
+
+
+def test_smart_format_negative_and_small():
+    from aibi_toolkit.measure import smart_format
+
+    assert smart_format(-5) == "#,0.00"
+    assert smart_format(5) == "#,0.00"
+    assert smart_format(0.5) == "0.00%"
+    assert smart_format(-0.5) == "0.00%"
+    assert smart_format(5000) == "$#,0.00"

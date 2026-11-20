@@ -69,7 +69,7 @@ def smart_format(value: float, currency: str = "USD") -> str:
     """Pick currency vs plain format based on value magnitude."""
     if value >= 1000:
         return currency_format(currency)
-    if value < 1:
+    if 0 < abs(value) < 1:
         return percent_format(2)
     return thousands_format(2)
 
