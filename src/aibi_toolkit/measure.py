@@ -16,7 +16,7 @@ def currency_format(code: str, decimals: int = 2) -> str:
 
 def percent_format(decimals: int = 1) -> str:
     """Build a percentage format string, e.g. 0.0%."""
-    return f"0.{('0' * decimals) if decimals else ''}%"
+    return f"0.{('0' * decimals) if decimals else ''}%".replace(".%", "%")
 
 
 def thousands_format(decimals: int = 0) -> str:

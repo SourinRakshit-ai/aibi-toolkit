@@ -61,3 +61,10 @@ def test_validate_format_unbalanced_braces():
 def test_scale():
     from aibi_toolkit.measure import scale_number
     assert scale_number(1.005) == 1.0
+
+
+def test_percent_format_zero_decimals():
+    from aibi_toolkit.measure import percent_format
+
+    assert percent_format(0) == "0%"
+    assert percent_format(1) == "0.0%"
