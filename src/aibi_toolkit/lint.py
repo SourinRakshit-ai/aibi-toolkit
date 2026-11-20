@@ -88,12 +88,12 @@ RULES: tuple[Rule, ...] = (
     ),
     Rule(
         "true_comparison",
-        r"=\s*TRUE\s*\(\s*\)",
+        r"(?<![=<>!])=\s*TRUE\s*\(\s*\)",
         "[flag] = TRUE() is [flag] — the column is already the boolean",
     ),
     Rule(
         "false_comparison",
-        r"=\s*FALSE\s*\(\s*\)",
+        r"(?<![=<>!])=\s*FALSE\s*\(\s*\)",
         "[flag] = FALSE() is NOT [flag] — invert the column instead",
     ),
     Rule(
@@ -108,7 +108,7 @@ RULES: tuple[Rule, ...] = (
     ),
     Rule(
         "blank_equality",
-        r"=\s*BLANK\s*\(\s*\)",
+        r"(?<![=<>!])=\s*BLANK\s*\(\s*\)",
         "[x] = BLANK() compares against BLANK instead of asking ISBLANK(x)",
     ),
     Rule(

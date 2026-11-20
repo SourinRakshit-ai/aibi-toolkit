@@ -209,3 +209,10 @@ def test_raw_division_constant_denominator_is_safe():
     assert lint_dax("1 / 2") == []
     assert any("DIVIDE" in f for f in lint_dax("[x] / [y]"))
     assert lint_dax("ASP = DIVIDE([Sales], [Units], 0)") == []
+
+
+def test_strict_equality_is_not_plain_equality():
+    for expr in ("[x] == TRUE()", "[x] == FALSE()", "[x] == BLANK()"):
+        assert lint_dax(expr) == [], expr
+    assert any("column is already" in f for f in lint_dax("[x] = TRUE()"))
+    assert any("ISBLANK" in f for f in lint_dax("[x] = BLANK()"))
