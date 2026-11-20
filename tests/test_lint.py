@@ -89,3 +89,10 @@ def test_false_comparison_rule():
     flag = lint_dax
     assert any("invert the column" in f for f in flag("[Active] = FALSE()"))
     assert flag("IF([Active], 1, 2)") == []
+
+
+def test_abs_impossible_rule():
+    flag = lint_dax
+    assert any("can never hold" in f for f in flag("IF(ABS([x]) < 0, 1, 2)"))
+    assert flag("IF(ABS([x]) >= 0, 1, 2)") == []
+    assert flag("IF(ABS([x]) < [y], 1, 2)") == []
