@@ -202,3 +202,10 @@ def test_cli_sarif_conflicts_with_json(capsys, tmp_path):
     assert doc["version"] == "2.1.0"
     assert main(["lint", model, "--sarif", "--json"]) == 2
     assert "mutually exclusive" in capsys.readouterr().err
+
+
+def test_raw_division_constant_denominator_is_safe():
+    assert lint_dax("[x] / 2") == []
+    assert lint_dax("1 / 2") == []
+    assert any("DIVIDE" in f for f in lint_dax("[x] / [y]"))
+    assert lint_dax("ASP = DIVIDE([Sales], [Units], 0)") == []

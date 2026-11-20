@@ -128,7 +128,11 @@ def lint_findings(expression: str) -> list[tuple[str, str]]:
     findings: list[tuple[str, str]] = []
     for rule, compiled in _COMPILED:
         if rule.name == "raw_division":
-            if "/" in expression and not re.search(r"(?i)\bDIVIDE\s*\(", expression):
+            # A constant denominator cannot vary with filter context, so
+            # it cannot divide by zero — only flag variable denominators.
+            stripped = re.sub(r"(?i)\bDIVIDE\s*\([^()]*\)", "", expression)
+            variable_slash = re.search(r"/\s*(?![\d\s]*(?:\)|,|$))", stripped)
+            if variable_slash and not re.search(r"(?i)\bDIVIDE\s*\(", expression):
                 findings.append((rule.name, rule.message))
         elif compiled.search(expression):
             findings.append((rule.name, rule.message))
