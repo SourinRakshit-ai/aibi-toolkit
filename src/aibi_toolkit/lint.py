@@ -41,6 +41,10 @@ def lint_dax(expression: str) -> list[str]:
         findings.append("INT(INT(x)) is just INT(x) — INT is idempotent")
     if re.search(r"\bDISTINCTCOUNT\s*\(\s*VALUES\s*\(", expression, re.IGNORECASE):
         findings.append("DISTINCTCOUNT(VALUES(x)) is DISTINCTCOUNT(x) — one distinct pass")
+    if re.search(r"=\s*TRUE\s*\(\s*\)", expression, re.IGNORECASE):
+        findings.append("[flag] = TRUE() is [flag] — the column is already the boolean")
+    if re.search(r"=\s*FALSE\s*\(\s*\)", expression, re.IGNORECASE):
+        findings.append("[flag] = FALSE() is NOT [flag] — invert the column instead")
     return findings
 
 def lint_model(model: Model) -> dict[str, list[str]]:

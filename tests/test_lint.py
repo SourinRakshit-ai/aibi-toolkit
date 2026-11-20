@@ -76,3 +76,15 @@ def test_distinctcount_values_rule():
     assert any("DISTINCTCOUNT(x)" in f for f in flag("DISTINCTCOUNT(VALUES([Region]))"))
     assert flag("DISTINCTCOUNT([Region])") == []
     assert flag("COUNTROWS(VALUES([Region]))") != []
+
+
+def test_true_comparison_rule():
+    flag = lint_dax
+    assert any("column is already" in f for f in flag("[Active] = TRUE()"))
+    assert flag("IF(TRUE(), 1, 2)") != []
+
+
+def test_false_comparison_rule():
+    flag = lint_dax
+    assert any("invert the column" in f for f in flag("[Active] = FALSE()"))
+    assert flag("IF([Active], 1, 2)") == []
