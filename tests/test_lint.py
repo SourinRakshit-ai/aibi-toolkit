@@ -152,3 +152,53 @@ def test_cli_list_rules_and_explain(capsys):
 
     assert main(["explain", "nope"]) == 2
     assert "unknown rule" in capsys.readouterr().err
+
+
+def test_sarif_document_shape_and_attribution():
+
+    from aibi_toolkit.lint import lint_model_findings
+    from aibi_toolkit.sarif import build_sarif
+
+    model = {
+        "tables": [
+            {
+                "name": "Sales",
+                "columns": [],
+                "measures": [
+                    {"name": "Dirty/Measure", "expression": "NOT(NOT([x])) + [a] / [b]"}
+                ],
+            }
+        ]
+    }
+    doc = build_sarif(lint_model_findings(model), "model.json")
+    assert doc["version"] == "2.1.0"
+    assert doc["$schema"].endswith("sarif-2.1.0.json")
+    run = doc["runs"][0]
+    assert run["tool"]["driver"]["name"] == "aibi-toolkit"
+    assert len(run["tool"]["driver"]["rules"]) == 20
+    ids = [r["ruleId"] for r in run["results"]]
+    assert ids == ["raw_division", "double_negation"]
+    uri = run["results"][0]["locations"][0]["physicalLocation"]["artifactLocation"]["uri"]
+    assert uri == "model.json#/measures/Dirty~1Measure"
+
+
+def test_cli_sarif_conflicts_with_json(capsys, tmp_path):
+    import json as _json
+
+    from aibi_toolkit.cli import main
+
+    model = tmp_path / "dirty.json"
+    model.write_text(
+        _json.dumps(
+            {"tables": [{"name": "Sales", "columns": [], "measures": [
+                {"name": "M", "expression": "NOT(NOT([x])) + [a] / [b]"}
+            ]}]}
+        ),
+        encoding="utf-8",
+    )
+    model = str(model)
+    assert main(["lint", model, "--sarif"]) == 0
+    doc = _json.loads(capsys.readouterr().out)
+    assert doc["version"] == "2.1.0"
+    assert main(["lint", model, "--sarif", "--json"]) == 2
+    assert "mutually exclusive" in capsys.readouterr().err

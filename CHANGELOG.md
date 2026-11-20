@@ -8,6 +8,10 @@
   projection, so text and JSON output remain unchanged.
 - Added `aibi lint --list-rules [--json]` and `aibi explain [RULE] [--json]`
   to expose the catalog to reviewers and CI allow-lists.
+- Added `aibi lint --sarif` — SARIF 2.1.0 output with rule attribution and
+  JSON Pointer locations into each measure, for code-scanning upload.
+  `lint_model_findings()` keeps rule IDs beside messages; JSON/text output
+  remains unchanged.
 
 ## 1.3.0 - 2026-11-18
 
