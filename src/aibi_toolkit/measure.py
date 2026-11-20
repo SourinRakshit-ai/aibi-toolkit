@@ -94,11 +94,17 @@ SHORT_SCALE = [("", 1), ("K", 1_000), ("M", 1_000_000), ("B", 1_000_000_000)]
 
 
 def human_readable(value: float) -> str:
-    """Render a number like 1.2M / 340K for CLI and docs output."""
+    """Render a number like 1.2M / 340K for CLI and docs output.
+
+    Choose the scale after rounding so 999,999 carries into 1.0M
+    rather than rendering as 1000.0K.
+    """
     for suffix, scale in reversed(SHORT_SCALE):
-        if abs(value) >= scale > 1:
-            return f"{value / scale:.1f}{suffix}"
-        if scale == 1:
+        if scale > 1:
+            rounded = round(value / scale, 1)
+            if abs(rounded) >= 1 and abs(value) >= 0.9999 * scale:
+                return f"{rounded}{suffix}"
+        else:
             return f"{value:,.0f}"
     return str(value)
 

@@ -86,3 +86,11 @@ def test_smart_format_negative_and_small():
     assert smart_format(0.5) == "0.00%"
     assert smart_format(-0.5) == "0.00%"
     assert smart_format(5000) == "$#,0.00"
+
+
+def test_human_readable_boundary_carry():
+    from aibi_toolkit.measure import human_readable
+
+    assert human_readable(999_999) == "1.0M"
+    assert human_readable(999_999_999) == "1.0B"
+    assert human_readable(1_240_000) == "1.2M"
