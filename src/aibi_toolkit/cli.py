@@ -15,6 +15,7 @@ COMMANDS = (
     ("export", "Export measures to CSV"),
     ("report", "Write a markdown audit report"),
     ("synth", "Generate a sample model JSON"),
+    ("explain", "Explain one lint rule (no argument lists them all)"),
 )
 
 # Commands where args.model is an input and args.out is a write target.
@@ -30,6 +31,15 @@ def main(argv: list[str] | None = None) -> int:
         if cmd == "synth":
             s.add_argument("out")
             s.add_argument("--tables", type=int, default=3, help="number of tables in the sample model")
+            continue
+        if cmd == "explain":
+            s.add_argument("rule", nargs="?", help="rule name (omit to list all)")
+            s.add_argument("--json", action="store_true", help="emit JSON")
+            continue
+        if cmd == "lint":
+            s.add_argument("model", nargs="?", help="model path (omit with --list-rules)")
+            s.add_argument("--list-rules", action="store_true", help="print the lint rule inventory and exit")
+            s.add_argument("--json", action="store_true", help="emit machine-readable JSON instead of text")
             continue
         s.add_argument("model")
         if cmd in WRITE_TARGETS:
@@ -71,7 +81,14 @@ def _dispatch(args: argparse.Namespace) -> int:
     if args.command == "audit":
         return cli_internal.cmd_audit(args.model, json_out=json_flag)
     if args.command == "lint":
+        if getattr(args, "list_rules", False):
+            return cli_internal.cmd_list_rules(json_out=json_flag)
+        if not getattr(args, "model", None):
+            print("aibi: lint needs a model path (or --list-rules)", file=sys.stderr)
+            return 2
         return cli_internal.cmd_lint(args.model, json_out=json_flag)
+    if args.command == "explain":
+        return cli_internal.cmd_explain(args.rule, json_out=json_flag)
     if args.command == "export":
         return cli_internal.cmd_export(args.model, args.out)
     if args.command == "diagram":

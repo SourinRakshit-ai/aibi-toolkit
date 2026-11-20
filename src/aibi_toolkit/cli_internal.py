@@ -124,3 +124,39 @@ def cmd_profile(model_path: str, json_out: bool = False) -> int:
     for name in p["heavy"]:
         print(f"[heavy] {name}")
     return 0
+
+
+def cmd_list_rules(json_out: bool = False) -> int:
+    """Print the lint rule catalog with each rule's rewrite message."""
+    import json
+
+    from aibi_toolkit.lint import RULES
+
+    if json_out:
+        print(json.dumps([{"name": r.name, "message": r.message} for r in RULES]))
+    else:
+        for rule in RULES:
+            print(f"{rule.name:<26}{rule.message}")
+    return 0
+
+
+def cmd_explain(rule_name: str | None, json_out: bool = False) -> int:
+    """Explain one lint rule; with no name, print the inventory."""
+    import json
+
+    from aibi_toolkit.lint import RULES
+
+    if rule_name is None:
+        return cmd_list_rules(json_out=json_out)
+
+    wanted = rule_name.strip().lower()
+    match = next((r for r in RULES if r.name.lower() == wanted), None)
+    if match is None:
+        names = "\n".join(f"  {r.name}" for r in RULES)
+        print(f"aibi: unknown rule {rule_name} — one of:\n{names}", file=sys.stderr)
+        return 2
+    if json_out:
+        print(json.dumps({"name": match.name, "pattern": match.pattern, "message": match.message}))
+    else:
+        print(f"{match.name}\n{match.message}\npattern: {match.pattern}")
+    return 0

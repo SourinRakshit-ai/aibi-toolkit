@@ -25,10 +25,12 @@ def test_every_fenced_aibi_command_parses() -> None:
             if line.startswith("$ aibi "):
                 cmds.append(line[len("$ aibi "):].strip())
     assert cmds, "docs/CLI.md exposes no aibi examples"
+    from aibi_toolkit.cli import COMMANDS
+
+    known = {cmd for cmd, _ in COMMANDS}
     for args in cmds:
-        # model is a required first positional for every command
         argv = args.split()
-        assert argv[0] in {"summary", "tables", "audit", "lint", "export", "report", "fix", "profile", "diagram", "synth"}, args
+        assert argv[0] in known, args
 
 
 def test_cli_md_documents_every_command() -> None:
