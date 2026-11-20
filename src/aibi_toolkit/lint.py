@@ -49,6 +49,10 @@ def lint_dax(expression: str) -> list[str]:
         findings.append("ABS(x) < 0 can never hold — check the sign or drop the condition")
     if re.search(r"\bCOUNTROWS\s*\([^()]*\)\s*=\s*0\b|\b0\s*=\s*COUNTROWS\s*\([^()]*\)", expression, re.IGNORECASE):
         findings.append("COUNTROWS(t) = 0 is ISEMPTY(t) — one call says the same thing")
+    if re.search(r"=\s*BLANK\s*\(\s*\)", expression, re.IGNORECASE):
+        findings.append("[x] = BLANK() compares against BLANK — ask ISBLANK(x) instead")
+    if re.search(r"<>\s*BLANK\s*\(\s*\)", expression, re.IGNORECASE):
+        findings.append("[x] <> BLANK() compares against BLANK — ask NOT(ISBLANK(x)) instead")
     return findings
 
 def lint_model(model: Model) -> dict[str, list[str]]:
