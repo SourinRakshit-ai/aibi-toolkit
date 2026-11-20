@@ -39,6 +39,8 @@ def lint_dax(expression: str) -> list[str]:
         findings.append("ABS(ABS(x)) is just ABS(x) — ABS is idempotent")
     if re.search(r"\bINT\s*\(\s*INT\s*\(", expression, re.IGNORECASE):
         findings.append("INT(INT(x)) is just INT(x) — INT is idempotent")
+    if re.search(r"\bDISTINCTCOUNT\s*\(\s*VALUES\s*\(", expression, re.IGNORECASE):
+        findings.append("DISTINCTCOUNT(VALUES(x)) is DISTINCTCOUNT(x) — one distinct pass")
     return findings
 
 def lint_model(model: Model) -> dict[str, list[str]]:

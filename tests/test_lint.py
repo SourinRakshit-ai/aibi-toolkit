@@ -69,3 +69,10 @@ def test_nested_int_rule():
     assert any("INT is idempotent" in f for f in flag("INT(INT([x]))"))
     assert flag("UPPER(LOWER([x]))") == []
     assert flag("ABS([x])") == []
+
+
+def test_distinctcount_values_rule():
+    flag = lint_dax
+    assert any("DISTINCTCOUNT(x)" in f for f in flag("DISTINCTCOUNT(VALUES([Region]))"))
+    assert flag("DISTINCTCOUNT([Region])") == []
+    assert flag("COUNTROWS(VALUES([Region]))") != []
