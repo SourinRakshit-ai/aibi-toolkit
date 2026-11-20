@@ -31,7 +31,7 @@ def detect_format(sample_value: float | bool) -> str:
     if isinstance(sample_value, int):
         return "#,0"
     if isinstance(sample_value, float):
-        if abs(sample_value) < 10:
+        if abs(sample_value) < 1:
             return percent_format(1)
         return "#,0.00"
     raise TypeError(f"Unsupported sample type: {type(sample_value)!r}")

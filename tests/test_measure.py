@@ -68,3 +68,11 @@ def test_percent_format_zero_decimals():
 
     assert percent_format(0) == "0%"
     assert percent_format(1) == "0.0%"
+
+
+def test_detect_format_percent_threshold():
+    from aibi_toolkit.measure import detect_format
+
+    assert detect_format(0.5) == "0.0%"
+    assert detect_format(5.2) == "#,0.00"
+    assert detect_format(12.5) == "#,0.00"
