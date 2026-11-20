@@ -31,6 +31,14 @@ def lint_dax(expression: str) -> list[str]:
         findings.append("NOT(NOT(x)) is just x — drop the double wrapper")
     if re.search(r"\bTRIM\s*\(\s*TRIM\s*\(", expression, re.IGNORECASE):
         findings.append("TRIM(TRIM(x)) is just TRIM(x) — one call trims everything the pair can")
+    if re.search(r"\bUPPER\s*\(\s*UPPER\s*\(", expression, re.IGNORECASE):
+        findings.append("UPPER(UPPER(x)) is just UPPER(x) — UPPER is idempotent")
+    if re.search(r"\bLOWER\s*\(\s*LOWER\s*\(", expression, re.IGNORECASE):
+        findings.append("LOWER(LOWER(x)) is just LOWER(x) — LOWER is idempotent")
+    if re.search(r"\bABS\s*\(\s*ABS\s*\(", expression, re.IGNORECASE):
+        findings.append("ABS(ABS(x)) is just ABS(x) — ABS is idempotent")
+    if re.search(r"\bINT\s*\(\s*INT\s*\(", expression, re.IGNORECASE):
+        findings.append("INT(INT(x)) is just INT(x) — INT is idempotent")
     return findings
 
 def lint_model(model: Model) -> dict[str, list[str]]:

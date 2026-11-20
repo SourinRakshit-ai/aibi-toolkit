@@ -47,3 +47,25 @@ def test_nested_trim_rule():
     assert any("TRIM(TRIM(x))" in f for f in flag("TRIM(TRIM([Name]))"))
     assert flag("TRIM([Name])") == []
     assert flag("TRIM(LOWER(TRIM([Name])))") == []
+
+
+def test_nested_upper_rule():
+    flag = lint_dax
+    assert any("UPPER is idempotent" in f for f in flag("UPPER(UPPER([Name]))"))
+
+
+def test_nested_lower_rule():
+    flag = lint_dax
+    assert any("LOWER is idempotent" in f for f in flag("LOWER(LOWER([Name]))"))
+
+
+def test_nested_abs_rule():
+    flag = lint_dax
+    assert any("ABS is idempotent" in f for f in flag("ABS(ABS([x]))"))
+
+
+def test_nested_int_rule():
+    flag = lint_dax
+    assert any("INT is idempotent" in f for f in flag("INT(INT([x]))"))
+    assert flag("UPPER(LOWER([x]))") == []
+    assert flag("ABS([x])") == []
