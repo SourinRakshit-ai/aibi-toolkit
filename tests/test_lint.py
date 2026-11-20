@@ -96,3 +96,10 @@ def test_abs_impossible_rule():
     assert any("can never hold" in f for f in flag("IF(ABS([x]) < 0, 1, 2)"))
     assert flag("IF(ABS([x]) >= 0, 1, 2)") == []
     assert flag("IF(ABS([x]) < [y], 1, 2)") == []
+
+
+def test_countrows_zero_rule():
+    flag = lint_dax
+    assert any("ISEMPTY" in f for f in flag("IF(COUNTROWS([T]) = 0, 1, 2)"))
+    assert any("ISEMPTY" in f for f in flag("IF(0 = COUNTROWS([T]), 1, 2)"))
+    assert flag("COUNTROWS([T]) > 0") == []
