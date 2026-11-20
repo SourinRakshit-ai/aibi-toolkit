@@ -115,3 +115,40 @@ def test_blank_inequality_rule():
     flag = lint_dax
     assert any("NOT(ISBLANK" in f for f in flag("[x] <> BLANK()"))
     assert flag("[x] > BLANK()") == []
+
+
+def test_rule_catalog_names_are_unique_and_stable():
+    from aibi_toolkit.lint import RULES
+
+    names = [rule.name for rule in RULES]
+    assert len(names) == len(set(names)), "duplicate rule names break explain"
+    assert names[0] == "raw_division"
+    assert "double_negation" in names
+    assert "blank_inequality" in names
+    assert all(rule.message for rule in RULES)
+
+
+def test_lint_findings_keep_rule_attribution():
+    from aibi_toolkit.lint import lint_findings
+
+    found = lint_findings("NOT(NOT([x])) + [y] / [z]")
+    names = [name for name, _ in found]
+    assert names == ["raw_division", "double_negation"]
+    assert [msg for _, msg in found] == lint_dax("NOT(NOT([x])) + [y] / [z]")
+
+
+def test_cli_list_rules_and_explain(capsys):
+    from aibi_toolkit.cli import main
+
+    assert main(["lint", "--list-rules"]) == 0
+    listed = capsys.readouterr().out
+    assert "double_negation" in listed
+    assert "raw_division" in listed
+
+    assert main(["explain", "double_negation"]) == 0
+    explained = capsys.readouterr().out
+    assert "double_negation" in explained
+    assert "pattern:" in explained
+
+    assert main(["explain", "nope"]) == 2
+    assert "unknown rule" in capsys.readouterr().err

@@ -1,5 +1,14 @@
 # Changelog
 
+## unreleased
+
+- `lint.py` is now a named rule catalog (`RULES`): twenty structural
+  checks each carry a stable name, regex and rewrite message.
+  `lint_findings()` returns (rule, message) pairs; `lint_dax()` is a
+  projection, so text and JSON output remain unchanged.
+- Added `aibi lint --list-rules [--json]` and `aibi explain [RULE] [--json]`
+  to expose the catalog to reviewers and CI allow-lists.
+
 ## 1.3.0 - 2026-11-18
 
 - Added: TMDL folder loader (`aibi_toolkit.tmdl.load_pbip` /

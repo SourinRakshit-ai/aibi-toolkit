@@ -152,6 +152,7 @@ with a one-line reason on stderr — never a traceback.
 | `aibi tables model.json` | list tables |
 | `aibi audit model.json` | hygiene findings + 0-100 score |
 | `aibi lint model.json` | DAX rule findings |
+| `aibi explain [RULE]` | explain a lint rule; no argument lists them all (`--json`) |
 | `aibi fix --dry-run model.json` | preview naming/format fixes (omit `--dry-run` to apply) |
 | `aibi profile model.json` | expression complexity: count, avg, max, heavy |
 | `aibi diagram model.json` | mermaid ER diagram |

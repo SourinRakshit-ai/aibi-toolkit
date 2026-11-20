@@ -86,6 +86,9 @@ name: <reason>`. No output means the sample passed every check — return code
 is then `0`.
 
 `--json` prints `{"lint": {measure_name: [reasons]}}` for machine reading.
+`--list-rules` prints the rule inventory (name and rewrite message) and exits
+0 without reading a model; `--list-rules --json` emits
+`[{"name": ..., "message": ...}]`.
 
 ### Exit codes
 
@@ -192,6 +195,25 @@ two measures each. `--tables N` overrides the table count.
 - `0` — file written.
 - `2` — file path unwritable.
 
+## Explain
+
+```bash
+$ aibi explain double_negation
+double_negation
+NOT(NOT(x)) is just x — drop the double wrapper
+pattern: (?:\bNOT\s*\(|!)\s*(?:\bNOT\s*\(|!)
+```
+
+With no rule name, `aibi explain` prints the same inventory as
+`--list-rules` and exits 0. `--json` prints `{"name", "pattern",
+"message"}` for one rule, or an array for the inventory. Names are
+case-insensitive; an unknown name exits 2 with the inventory on stderr.
+
+### Exit codes
+
+- `0` — rule found (or no name given).
+- `2` — unknown rule name.
+
 ## Every command at a glance
 
 | Command | Reads model | Writes | Exit codes |
@@ -206,6 +228,7 @@ two measures each. `--tables N` overrides the table count.
 | `export` | yes | CSV | 0 / 2 |
 | `report` | yes | markdown | 0 / 2 |
 | `synth` | no | JSON | 0 / 2 |
+| `explain` | no | stdout | 0 / 2 |
 
 ## Exit codes (global)
 
