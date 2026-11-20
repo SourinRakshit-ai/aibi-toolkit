@@ -2,6 +2,13 @@
 
 ## unreleased
 
+- Fixed: `percent_format(0)` emitted the invalid format `'0.%'` (#31).
+- Fixed: `detect_format` guessed percent for floats >= 1 (#32).
+- Fixed: `smart_format` guessed percent for negative values (#33).
+- Fixed: `human_readable` rendered boundary values as `1000.0K`/`1000.0M` (#34).
+- Fixed: `raw_division` lint falsely flagged constant denominators like `[x] / 2` (#35).
+- Fixed: equality lint rules falsely flagged DAX strict equality `==` (#36).
+
 - `lint.py` is now a named rule catalog (`RULES`): twenty structural
   checks each carry a stable name, regex and rewrite message.
   `lint_findings()` returns (rule, message) pairs; `lint_dax()` is a
