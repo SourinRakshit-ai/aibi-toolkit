@@ -81,7 +81,8 @@ def test_distinctcount_values_rule():
 def test_true_comparison_rule():
     flag = lint_dax
     assert any("column is already" in f for f in flag("[Active] = TRUE()"))
-    assert flag("IF(TRUE(), 1, 2)") != []
+    assert any("column is already" in f for f in flag("IF([Active] = TRUE(), 1, 2)"))
+    assert all("column is already" not in f for f in flag("IF(TRUE(), 1, 2)"))
 
 
 def test_false_comparison_rule():
