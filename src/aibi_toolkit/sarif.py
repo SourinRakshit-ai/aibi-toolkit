@@ -15,17 +15,17 @@ def _escape(part: str) -> str:
 
 
 def build_sarif(
-    findings: list[tuple[str, str, str]], model_path: str
+    findings: list[tuple[str, str, str, str]], model_path: str
 ) -> dict[str, Any]:
     """One-run SARIF 2.1.0 document for `aibi lint --sarif`.
 
-    Each finding is (measure name, rule id, message). A JSON Pointer
-    fragment points at the measure in the model file, with RFC 6901
-    escaping on name parts.
+    Each finding is (table, measure, rule id, message). A JSON
+    Pointer fragment points at the measure in the model file's real
+    `tables[].measures[]` shape, with RFC 6901 escaping on name parts.
     """
     results: list[dict[str, Any]] = []
-    for measure, rule_id, message in findings:
-        pointer = f"#/measures/{_escape(measure)}"
+    for table, measure, rule_id, message in findings:
+        pointer = f"#/tables/{_escape(table)}/measures/{_escape(measure)}"
         results.append(
             {
                 "ruleId": rule_id,

@@ -179,7 +179,7 @@ def test_sarif_document_shape_and_attribution():
     ids = [r["ruleId"] for r in run["results"]]
     assert ids == ["raw_division", "double_negation"]
     uri = run["results"][0]["locations"][0]["physicalLocation"]["artifactLocation"]["uri"]
-    assert uri == "model.json#/measures/Dirty~1Measure"
+    assert uri == "model.json#/tables/Sales/measures/Dirty~1Measure"
 
 
 def test_cli_sarif_conflicts_with_json(capsys, tmp_path):
