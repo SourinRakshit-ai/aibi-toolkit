@@ -144,19 +144,24 @@ def lint_dax(expression: str) -> list[str]:
     return [message for _, message in lint_findings(expression)]
 
 
-def lint_model_findings(model: Model) -> list[tuple[str, str, str]]:
-    """Per-measure findings as (measure name, rule, message) triples."""
-    from .metadata import list_measures
-    out: list[tuple[str, str, str]] = []
-    for m in list_measures(model):
-        for rule, message in lint_findings(m.get("expression", "")):
-            out.append((m["name"], rule, message))
+def lint_model_findings(model: Model) -> list[tuple[str, str, str, str]]:
+    """Per-measure findings as (table, measure, rule, message) quadruples.
+
+    The table name is needed to build a JSON Pointer into the real dump
+    shape (`tables[].measures[]`) for SARIF locations.
+    """
+    out: list[tuple[str, str, str, str]] = []
+    for table in model.get("tables", []):
+        table_name = str(table.get("name", "?"))
+        for m in table.get("measures", []):
+            for rule, message in lint_findings(str(m.get("expression", ""))):
+                out.append((table_name, str(m["name"]), rule, message))
     return out
 
 
 def lint_model(model: Model) -> dict[str, list[str]]:
     """Lint every measure in the model, grouped by measure name."""
     out: dict[str, list[str]] = {}
-    for name, _, message in lint_model_findings(model):
+    for _, name, _, message in lint_model_findings(model):
         out.setdefault(name, []).append(message)
     return out
