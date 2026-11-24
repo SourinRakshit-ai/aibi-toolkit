@@ -40,26 +40,59 @@ def cmd_audit(model_path: str, json_out: bool = False) -> int:
     return 1 if any(findings.values()) else 0
 
 
-def cmd_lint(model_path: str, json_out: bool = False, sarif: bool = False) -> int:
+def cmd_lint(
+    model_path: str,
+    json_out: bool = False,
+    sarif: bool = False,
+    rule_names: list[str] | None = None,
+) -> int:
     import json
 
-    from aibi_toolkit.lint import lint_model, lint_model_findings
+    from aibi_toolkit.lint import RULES, lint_model_findings
     from aibi_toolkit.sarif import build_sarif
+
+    rules = RULES
+    if rule_names:
+        wanted = {name.strip().lower() for name in rule_names}
+        rules = tuple(r for r in RULES if r.name.lower() in wanted)
+        unknown = wanted - {r.name.lower() for r in RULES}
+        if unknown:
+            inventory = ", ".join(r.name for r in RULES)
+            print(
+                f"aibi: unknown rule {', '.join(sorted(unknown))} — one of: {inventory}",
+                file=sys.stderr,
+            )
+            return 2
+
     model = _model(model_path)
+    allowed = {r.name for r in rules} if rule_names else None
+    findings = [
+        (table, measure, rule, message)
+        for table, measure, rule, message in lint_model_findings(model)
+        if allowed is None or rule in allowed
+    ]
+
     if sarif:
         if json_out:
             print("aibi: --sarif and --json are mutually exclusive — pick one format", file=sys.stderr)
             return 2
-        print(json.dumps(build_sarif(lint_model_findings(model), model_path)))
+        doc = build_sarif(findings, model_path)
+        doc["runs"][0]["tool"]["driver"]["rules"] = [
+            {"id": r.name, "shortDescription": {"text": r.message}} for r in rules
+        ]
+        print(json.dumps(doc))
         return 0
-    findings = lint_model(model)
+
+    grouped: dict[str, list[str]] = {}
+    for _, measure, _, message in findings:
+        grouped.setdefault(measure, []).append(message)
     if json_out:
-        print(json.dumps({"lint": findings}, indent=2))
-        return 1 if findings else 0
-    for name, issues in findings.items():
+        print(json.dumps({"lint": grouped}, indent=2))
+        return 1 if grouped else 0
+    for name, issues in grouped.items():
         for issue in issues:
             print(f"[lint] {name}: {issue}")
-    return 1 if findings else 0
+    return 1 if grouped else 0
 
 
 def cmd_export(model_path: str, out_path: str) -> int:

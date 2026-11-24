@@ -216,3 +216,38 @@ def test_strict_equality_is_not_plain_equality():
         assert lint_dax(expr) == [], expr
     assert any("column is already" in f for f in lint_dax("[x] = TRUE()"))
     assert any("ISBLANK" in f for f in lint_dax("[x] = BLANK()"))
+
+
+def test_cli_lint_rule_filter_all_formats(capsys, tmp_path):
+    import json as _json
+
+    from aibi_toolkit.cli import main
+
+    model = tmp_path / "dirty.json"
+    model.write_text(
+        _json.dumps({"tables": [{"name": "Sales", "columns": [], "measures": [
+            {"name": "M", "expression": "[a] / [b] + NOT(NOT([x]))"}
+        ]}]}),
+        encoding="utf-8",
+    )
+    assert main(["lint", str(model), "--rule", "raw_division"]) == 1
+    out = capsys.readouterr().out
+    assert "DIVIDE" in out and "double wrapper" not in out
+
+    assert main(["lint", str(model), "--rule", "raw_division", "--json"]) == 1
+    payload = _json.loads(capsys.readouterr().out)["lint"]
+    assert payload == {"M": ["use DIVIDE instead of / to guard divide-by-zero"]}
+
+    assert main(["lint", str(model), "--rule", "raw_division", "--sarif"]) == 0
+    doc = _json.loads(capsys.readouterr().out)
+    assert [r["ruleId"] for r in doc["runs"][0]["results"]] == ["raw_division"]
+    assert len(doc["runs"][0]["tool"]["driver"]["rules"]) == 1
+
+
+def test_cli_lint_unknown_rule_exits_two(capsys, tmp_path):
+    from aibi_toolkit.cli import main
+
+    model = tmp_path / "clean.json"
+    model.write_text("{}", encoding="utf-8")
+    assert main(["lint", str(model), "--rule", "nope"]) == 2
+    assert "unknown rule" in capsys.readouterr().err
