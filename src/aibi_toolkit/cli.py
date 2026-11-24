@@ -39,6 +39,8 @@ def main(argv: list[str] | None = None) -> int:
         if cmd == "lint":
             s.add_argument("model", nargs="?", help="model path (omit with --list-rules)")
             s.add_argument("--list-rules", action="store_true", help="print the lint rule inventory and exit")
+            s.add_argument("--rule", action="append", metavar="NAME",
+                           help="run only this rule (repeatable; case-insensitive)")
             s.add_argument("--sarif", action="store_true", help="emit SARIF 2.1.0 for code scanning (exit 0)")
             s.add_argument("--json", action="store_true", help="emit machine-readable JSON instead of text")
             continue
@@ -88,7 +90,10 @@ def _dispatch(args: argparse.Namespace) -> int:
             print("aibi: lint needs a model path (or --list-rules)", file=sys.stderr)
             return 2
         return cli_internal.cmd_lint(
-            args.model, json_out=json_flag, sarif=getattr(args, "sarif", False)
+            args.model,
+            json_out=json_flag,
+            sarif=getattr(args, "sarif", False),
+            rule_names=getattr(args, "rule", None),
         )
     if args.command == "explain":
         return cli_internal.cmd_explain(args.rule, json_out=json_flag)

@@ -88,7 +88,10 @@ is then `0`.
 `--json` prints `{"lint": {measure_name: [reasons]}}` for machine reading.
 `--list-rules` prints the rule inventory (name and rewrite message) and exits
 0 without reading a model; `--list-rules --json` emits
-`[{"name": ..., "message": ...}]`.
+`[{"name": ..., "message": ...}]`. `--rule NAME` is repeatable and runs only
+the named rules (case-insensitive); an unknown name exits 2 with the
+inventory on stderr. It composes with text, JSON and SARIF output — a
+SARIF driver's rule inventory narrows to the selected rules.
 
 ### Exit codes
 
