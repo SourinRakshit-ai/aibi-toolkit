@@ -63,3 +63,15 @@ def test_split_words():
 def test_initials():
     from aibi_toolkit.naming import initials
     assert initials("Total Sales") == "TS"
+
+
+def test_a_or_an_pronunciation_exceptions():
+    from aibi_toolkit.naming import a_or_an
+
+    assert a_or_an("hour") == "an"
+    assert a_or_an("honest") == "an"
+    assert a_or_an("user") == "a"
+    assert a_or_an("unique") == "a"
+    assert a_or_an("apple") == "an"
+    assert a_or_an("table") == "a"
+    assert a_or_an("") == "a"

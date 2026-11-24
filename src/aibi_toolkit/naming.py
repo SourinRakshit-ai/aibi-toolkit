@@ -109,10 +109,23 @@ def strip_numbers(name: str) -> str:
 
 VOWELS = "aeiouAEIOU"
 
+# Silent-h words take "an" even though they start with a consonant.
+SILENT_H = {"hour", "honest", "heir", "herb", "honor", "honour"}
+
+# "u" words pronounced /juː/ take "a" despite the vowel letter.
+YOU_SOUND = ("user", "unique", "unit", "universe", "utility", "uniform", "unified")
+
 
 def a_or_an(word: str) -> str:
-    """Return the correct article for a word."""
-    return "an" if word and word[0] in VOWELS else "a"
+    """Return the article a word takes, by pronunciation not spelling."""
+    if not word:
+        return "a"
+    lower = word.lower()
+    if lower in SILENT_H:
+        return "an"
+    if lower.startswith(YOU_SOUND):
+        return "a"
+    return "an" if word[0] in VOWELS else "a"
 
 
 def pluralize(word: str) -> str:
