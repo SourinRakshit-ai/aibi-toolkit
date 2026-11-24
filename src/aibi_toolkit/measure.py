@@ -90,7 +90,8 @@ def resolve_format(key: str) -> str:
         raise ValueError(f"Unknown format alias: {key!r}") from None
 
 
-SHORT_SCALE = [("", 1), ("K", 1_000), ("M", 1_000_000), ("B", 1_000_000_000)]
+SHORT_SCALE = [("", 1), ("K", 1_000), ("M", 1_000_000), ("B", 1_000_000_000),
+               ("T", 1_000_000_000_000), ("Qa", 1_000_000_000_000_000)]
 
 
 def human_readable(value: float) -> str:

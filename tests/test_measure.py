@@ -94,3 +94,13 @@ def test_human_readable_boundary_carry():
     assert human_readable(999_999) == "1.0M"
     assert human_readable(999_999_999) == "1.0B"
     assert human_readable(1_240_000) == "1.2M"
+
+
+def test_human_readable_beyond_billions():
+    from aibi_toolkit.measure import human_readable
+
+    assert human_readable(1e12) == "1.0T"
+    assert human_readable(1e15) == "1.0Qa"
+    assert human_readable(1.5e12) == "1.5T"
+    assert human_readable(999_999) == "1.0M"
+    assert human_readable(999) == "999"
