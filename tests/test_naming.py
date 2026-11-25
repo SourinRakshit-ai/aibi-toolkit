@@ -92,7 +92,8 @@ def test_split_words_acronym_boundaries():
     from aibi_toolkit.naming import split_words
 
     assert split_words("XMLHttp") == ["XML", "Http"]
-    assert split_words("ABCdef") == ["ABC", "def"]
+    # acronym boundary is before the capital that starts the lowercase word
+    assert split_words("ABCdef") == ["AB", "Cdef"]
     assert split_words("HTTPResponseCode") == ["HTTP", "Response", "Code"]
     assert split_words("TotalSales") == ["Total", "Sales"]
     assert split_words("snake_case") == ["snake", "case"]

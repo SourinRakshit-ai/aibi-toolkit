@@ -151,7 +151,7 @@ def split_words(name: str) -> list[str]:
     """Split any naming style into words without separators."""
     spaced = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", name)
     # acronym boundary: uppercase run followed by Upper+lower word
-    spaced = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1 \2", spaced)
+    spaced = re.sub(r"(?<=[A-Z])(?=[A-Z][a-z])", " ", spaced)
     spaced = re.sub(r"[(){}\[\]]", " ", spaced)
     return [w for w in spaced.replace("_", " ").replace("-", " ").split() if w]
 
