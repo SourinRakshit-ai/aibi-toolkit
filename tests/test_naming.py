@@ -75,3 +75,14 @@ def test_a_or_an_pronunciation_exceptions():
     assert a_or_an("apple") == "an"
     assert a_or_an("table") == "a"
     assert a_or_an("") == "a"
+
+
+def test_a_or_an_case_plural_and_phrase():
+    from aibi_toolkit.naming import a_or_an
+
+    assert a_or_an("Hours") == "an"
+    assert a_or_an("honest answer") == "an"
+    assert a_or_an("Unicode") == "a"
+    assert a_or_an("one measure") == "a"
+    assert a_or_an("apple") == "an"
+    assert a_or_an("table") == "a"

@@ -110,22 +110,32 @@ def strip_numbers(name: str) -> str:
 VOWELS = "aeiouAEIOU"
 
 # Silent-h words take "an" even though they start with a consonant.
-SILENT_H = {"hour", "honest", "heir", "herb", "honor", "honour"}
+SILENT_H = {"hour", "honest", "heir", "herb", "honor", "honour", "hours", "honesty"}
 
 # "u" words pronounced /juː/ take "a" despite the vowel letter.
 YOU_SOUND = ("user", "unique", "unit", "universe", "utility", "uniform", "unified")
 
 
 def a_or_an(word: str) -> str:
-    """Return the article a word takes, by pronunciation not spelling."""
-    if not word:
+    """Return the article a phrase takes, by pronunciation not spelling.
+
+    The decision comes from the first word, so "honest answer" and
+    "user account" work as well as their single-word forms.
+    """
+    first = word.split()[0] if word.split() else ""
+    if not first:
         return "a"
-    lower = word.lower()
-    if lower in SILENT_H:
+    lower = first.lower()
+    # Plurals of the silent-h set follow the same pronunciation.
+    if lower in SILENT_H or (lower.endswith("s") and lower[:-1] in SILENT_H):
         return "an"
-    if lower.startswith(YOU_SOUND):
+    # Capitalized /juː/ words (Unicode, European) follow the u-rule too.
+    if lower.startswith(YOU_SOUND) or lower.startswith(("unicode", "european")):
         return "a"
-    return "an" if word[0] in VOWELS else "a"
+    # Words beginning with a pronounced "w" sound are "a" despite "o".
+    if lower.startswith(("one", "once")):
+        return "a"
+    return "an" if first[0] in VOWELS else "a"
 
 
 def pluralize(word: str) -> str:
