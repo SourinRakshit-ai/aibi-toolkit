@@ -86,3 +86,13 @@ def test_a_or_an_case_plural_and_phrase():
     assert a_or_an("one measure") == "a"
     assert a_or_an("apple") == "an"
     assert a_or_an("table") == "a"
+
+
+def test_split_words_acronym_boundaries():
+    from aibi_toolkit.naming import split_words
+
+    assert split_words("XMLHttp") == ["XML", "Http"]
+    assert split_words("ABCdef") == ["ABC", "def"]
+    assert split_words("HTTPResponseCode") == ["HTTP", "Response", "Code"]
+    assert split_words("TotalSales") == ["Total", "Sales"]
+    assert split_words("snake_case") == ["snake", "case"]
