@@ -69,6 +69,8 @@ def dedupe_names(names: list[str]) -> list[str]:
 
 def truncate_name(name: str, limit: int = 64) -> str:
     """Truncate a name to a character limit without trailing spaces."""
+    if limit < 0:
+        raise ValueError(f"limit must be non-negative, got {limit}")
     return name[:limit].rstrip()
 
 

@@ -97,3 +97,12 @@ def test_split_words_acronym_boundaries():
     assert split_words("HTTPResponseCode") == ["HTTP", "Response", "Code"]
     assert split_words("TotalSales") == ["Total", "Sales"]
     assert split_words("snake_case") == ["snake", "case"]
+
+
+def test_truncate_name_rejects_negative_limit():
+    import pytest
+    from aibi_toolkit.naming import truncate_name
+
+    with pytest.raises(ValueError, match="non-negative"):
+        truncate_name("abcdef", -1)
+    assert truncate_name("abcdef", 3) == "abc"

@@ -100,6 +100,8 @@ def human_readable(value: float) -> str:
     Choose the scale after rounding so 999,999 carries into 1.0M
     rather than rendering as 1000.0K.
     """
+    if not math.isfinite(value):
+        return str(value)
     for suffix, scale in reversed(SHORT_SCALE):
         if scale > 1:
             rounded = round(value / scale, 1)

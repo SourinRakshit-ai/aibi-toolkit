@@ -104,3 +104,11 @@ def test_human_readable_beyond_billions():
     assert human_readable(1.5e12) == "1.5T"
     assert human_readable(999_999) == "1.0M"
     assert human_readable(999) == "999"
+
+
+def test_human_readable_non_finite():
+    from aibi_toolkit.measure import human_readable
+
+    assert human_readable(float("inf")) == "inf"
+    assert human_readable(float("-inf")) == "-inf"
+    assert human_readable(float("nan")) == "nan"
