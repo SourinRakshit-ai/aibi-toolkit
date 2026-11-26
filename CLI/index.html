@@ -1,0 +1,1145 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>CLI reference - aibi-toolkit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cli-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="aibi-toolkit" class="md-header__button md-logo" aria-label="aibi-toolkit" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            aibi-toolkit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CLI reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="aibi-toolkit" class="md-nav__button md-logo" aria-label="aibi-toolkit" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    aibi-toolkit
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input formats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../format-strings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DAX snippets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Auditing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagrams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../autofix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Auto-fixes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exit-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exit-codes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audit
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Audit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exit-codes_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exit-codes_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exit-codes_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profile
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Profile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exit-codes_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Export
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exit-codes_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Report
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Report">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exit-codes_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Diagram">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exit-codes_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synth
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Synth">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exit-codes_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explain
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Explain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exit-codes_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#every-command-at-a-glance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Every command at a glance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-codes-global" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit codes (global)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="cli-reference">CLI reference</h1>
+<p>Every command takes a model path first. A model path may be either:</p>
+<ul>
+<li>a shared-schema JSON dump (<code>model.json</code> produced by your model tool), or</li>
+<li>a <code>.pbip</code>-style TMDL directory — a project root, a <code>*.Dataset</code> folder, or
+  a bare <code>definition/</code> directory. <code>definition/tables/*.tmdl</code> feeds the table
+  list; <code>definition/relationships.tmdl</code> feeds the relationship checks.</li>
+</ul>
+<p>Output-oriented commands (<code>export</code>, <code>report</code>, <code>lint</code>, <code>fix</code>, <code>profile</code>,
+<code>summary</code>, <code>tables</code>, <code>audit</code>, <code>diagram</code>) are described here. <code>synth</code>
+generates a sample model instead of reading one.</p>
+<h2 id="summary">Summary</h2>
+<pre><code class="language-bash">$ aibi summary model.json
+tables=4 measures=8 columns=4
+
+$ aibi summary model.json --json
+{&quot;tables&quot;: 4, &quot;measures&quot;: 8, &quot;columns&quot;: 4}
+</code></pre>
+<p>Prints one line: <code>tables=N measures=N columns=N</code>. <code>tables</code> counts table
+objects; <code>measures</code> counts measure objects; <code>columns</code> counts columns in
+table objects. <code>--json</code> prints the same data as
+<code>{"tables": 4, "measures": 8, "columns": 4}</code>.</p>
+<h3 id="exit-codes">Exit codes</h3>
+<ul>
+<li><code>0</code> — model loaded, line printed.</li>
+<li><code>2</code> — model path missing, non-JSON, or top-level shape not an object.</li>
+</ul>
+<h2 id="tables">Tables</h2>
+<pre><code class="language-bash">$ aibi tables model.json
+Sales
+Customer
+Product
+Date
+
+$ aibi tables model.json --json
+[&quot;Sales&quot;, &quot;Customer&quot;, &quot;Product&quot;, &quot;Date&quot;]
+</code></pre>
+<p>One table name per line, in persisted order. <code>--json</code> prints
+<code>["Sales", "Customer", "Product", "Date"]</code> (a JSON array, in the same order).</p>
+<h3 id="exit-codes_1">Exit codes</h3>
+<ul>
+<li><code>0</code> — model loaded, list printed.</li>
+<li><code>2</code> — model path missing, non-JSON, or top-level shape not an object.</li>
+</ul>
+<h2 id="audit">Audit</h2>
+<pre><code class="language-bash">$ aibi audit model.json
+[missing_format] Measure 1
+[duplicate_names] Measure 1
+score=38
+</code></pre>
+<p>Findings are <code>[category] measure name</code>, one per line, then <code>score=N/100</code> at
+the bottom. Categories: <code>missing_format</code> (no <code>formatString</code>), <code>duplicate_names</code>
+(case-insensitive duplicate measure names), <code>long_names</code> (over 64 chars).</p>
+<p><code>--json</code> prints <code>{"score": 38, "findings": {category: [names]}}</code> instead of
+the text output — same content, easier to parse in CI.</p>
+<h3 id="exit-codes_2">Exit codes</h3>
+<ul>
+<li><code>1</code> — at least one finding.</li>
+<li><code>0</code> — model loaded and clean (score is not printed in that case; only
+  <code>no findings</code> would appear, currently it does — check empty output).</li>
+</ul>
+<h2 id="lint">Lint</h2>
+<pre><code class="language-bash">$ aibi lint model.json
+[lint] Measure name: use DIVIDE instead of / to guard divide-by-zero
+</code></pre>
+<p><code>aibi lint</code> is the DAX-oriented static check. Findings are <code>[lint] measure
+name: &lt;reason&gt;</code>. No output means the sample passed every check — return code
+is then <code>0</code>.</p>
+<p><code>--json</code> prints <code>{"lint": {measure_name: [reasons]}}</code> for machine reading.
+<code>--list-rules</code> prints the rule inventory (name and rewrite message) and exits
+0 without reading a model; <code>--list-rules --json</code> emits
+<code>[{"name": ..., "message": ...}]</code>. <code>--rule NAME</code> is repeatable and runs only
+the named rules (case-insensitive); an unknown name exits 2 with the
+inventory on stderr. It composes with text, JSON and SARIF output — a
+SARIF driver's rule inventory narrows to the selected rules.</p>
+<h3 id="exit-codes_3">Exit codes</h3>
+<ul>
+<li><code>1</code> — at least one finding.</li>
+<li><code>0</code> — no findings.</li>
+</ul>
+<h2 id="fix">Fix</h2>
+<pre><code class="language-bash">$ aibi fix model.json
+fixed: measure 'Measure 1' -&gt; 'Measure'
+fixed: format for 'Measure' -&gt; $#,0.00
+</code></pre>
+<p>Normalises what the audit would flag — names (snake_case/kebab/collapse),
+format strings, extras in the dump. <code>--dry-run</code> prints each proposed fix
+without touching anything.</p>
+<h3 id="exit-codes_4">Exit codes</h3>
+<ul>
+<li><code>0</code> — fixes were proposed (or applied when <code>--dry-run</code> is omitted; same count).</li>
+<li><code>1</code> — nothing to fix.</li>
+<li><code>2</code> — model path missing.</li>
+</ul>
+<h2 id="profile">Profile</h2>
+<pre><code class="language-bash">$ aibi profile model.json
+count=8 avg=0.0 max=0
+</code></pre>
+<p>Expression-complexity profile. <code>count</code> / <code>avg</code> / <code>max</code> are counts of DAX
+weight; heavier measures matter more in review. <code>--json</code> exposes <code>{"count":
+N, "avg": N, "max": N, "heavy": [names]}</code> for tooling.</p>
+<h3 id="exit-codes_5">Exit codes</h3>
+<ul>
+<li><code>0</code> — model loaded.</li>
+<li><code>2</code> — model path missing.</li>
+</ul>
+<h2 id="export">Export</h2>
+<pre><code class="language-bash">$ aibi export model.json out.csv
+exported 8 measures to out.csv
+</code></pre>
+<p>Writes CSV with columns <code>table,name,expression,formatString</code>. Unwrapped
+measure rows carry their enclosing table in the left column.</p>
+<h3 id="exit-codes_6">Exit codes</h3>
+<ul>
+<li><code>0</code> — CSV written.</li>
+<li><code>2</code> — model path missing, or output path unwritable. One-line reason on
+  stderr; never a traceback.</li>
+</ul>
+<h2 id="report">Report</h2>
+<pre><code class="language-bash">$ aibi report model.json out.md
+report written to out.md
+</code></pre>
+<p>Markdown report: <code># Model Audit Report</code>, score, tables/measures, measure
+findings, table findings (empty tables, bad names), relationship findings
+(inactive, bidirectional, missing cardinality), plus an appendix of rules.</p>
+<h3 id="exit-codes_7">Exit codes</h3>
+<ul>
+<li><code>0</code> — report written.</li>
+<li><code>2</code> — model path missing, or output path unwritable. One-line reason on
+  stderr; never a traceback.</li>
+</ul>
+<h2 id="diagram">Diagram</h2>
+<pre><code class="language-bash">$ aibi diagram model.json
+erDiagram
+    Sales ||--o{ Customer : has
+    Sales ||--o{ Product : has
+</code></pre>
+<p>Writes a mermaid <code>erDiagram</code> to stdout. Paste it into a mermaid-rendered
+markdown document or view in the mermaid CLI.</p>
+<h3 id="exit-codes_8">Exit codes</h3>
+<ul>
+<li><code>0</code> — diagram printed.</li>
+<li><code>2</code> — model path missing.</li>
+</ul>
+<h2 id="synth">Synth</h2>
+<pre><code class="language-bash">$ aibi synth out.json
+sample model written to out.json
+</code></pre>
+<p>Writes a small <code>model.json</code> suitable as scaffolding, or as a feed for the
+other commands. Tables seeded: <code>Sales</code>, <code>Customer</code>, <code>Product</code>, <code>Date</code> with
+two measures each. <code>--tables N</code> overrides the table count.</p>
+<h3 id="exit-codes_9">Exit codes</h3>
+<ul>
+<li><code>0</code> — file written.</li>
+<li><code>2</code> — file path unwritable.</li>
+</ul>
+<h2 id="explain">Explain</h2>
+<pre><code class="language-bash">$ aibi explain double_negation
+double_negation
+NOT(NOT(x)) is just x — drop the double wrapper
+pattern: (?:\bNOT\s*\(|!)\s*(?:\bNOT\s*\(|!)
+</code></pre>
+<p>With no rule name, <code>aibi explain</code> prints the same inventory as
+<code>--list-rules</code> and exits 0. <code>--json</code> prints <code>{"name", "pattern",
+"message"}</code> for one rule, or an array for the inventory. Names are
+case-insensitive; an unknown name exits 2 with the inventory on stderr.</p>
+<h3 id="exit-codes_10">Exit codes</h3>
+<ul>
+<li><code>0</code> — rule found (or no name given).</li>
+<li><code>2</code> — unknown rule name.</li>
+</ul>
+<h2 id="every-command-at-a-glance">Every command at a glance</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Reads model</th>
+<th>Writes</th>
+<th>Exit codes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>summary</code></td>
+<td>yes</td>
+<td>stdout</td>
+<td>0 / 2</td>
+</tr>
+<tr>
+<td><code>tables</code></td>
+<td>yes</td>
+<td>stdout</td>
+<td>0 / 2</td>
+</tr>
+<tr>
+<td><code>audit</code></td>
+<td>yes</td>
+<td>stdout</td>
+<td>0 / 1 / 2</td>
+</tr>
+<tr>
+<td><code>lint</code></td>
+<td>yes</td>
+<td>stdout</td>
+<td>0 / 1 / 2</td>
+</tr>
+<tr>
+<td><code>fix</code></td>
+<td>yes</td>
+<td>stdout / model</td>
+<td>0 / 1 / 2</td>
+</tr>
+<tr>
+<td><code>profile</code></td>
+<td>yes</td>
+<td>stdout</td>
+<td>0 / 2</td>
+</tr>
+<tr>
+<td><code>diagram</code></td>
+<td>yes</td>
+<td>stdout</td>
+<td>0 / 2</td>
+</tr>
+<tr>
+<td><code>export</code></td>
+<td>yes</td>
+<td>CSV</td>
+<td>0 / 2</td>
+</tr>
+<tr>
+<td><code>report</code></td>
+<td>yes</td>
+<td>markdown</td>
+<td>0 / 2</td>
+</tr>
+<tr>
+<td><code>synth</code></td>
+<td>no</td>
+<td>JSON</td>
+<td>0 / 2</td>
+</tr>
+<tr>
+<td><code>explain</code></td>
+<td>no</td>
+<td>stdout</td>
+<td>0 / 2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exit-codes-global">Exit codes (global)</h2>
+<ul>
+<li><code>0</code> — the command produced its output (or clean run).</li>
+<li><code>1</code> — findings exist on an audit/lint-style command.</li>
+<li><code>2</code> — usage error. Missing path, non-JSON, wrong top-level shape, or an
+  unwritable output path — always one line on stderr, never a traceback.</li>
+</ul>
+<p>Every command supports <code>--help</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
