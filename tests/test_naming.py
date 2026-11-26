@@ -101,6 +101,7 @@ def test_split_words_acronym_boundaries():
 
 def test_truncate_name_rejects_negative_limit():
     import pytest
+
     from aibi_toolkit.naming import truncate_name
 
     with pytest.raises(ValueError, match="non-negative"):

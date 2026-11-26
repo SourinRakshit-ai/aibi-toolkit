@@ -2,6 +2,7 @@ from __future__ import annotations
 
 """Format-string helpers for DAX measures."""
 
+import math
 from pathlib import Path
 from typing import Any
 
